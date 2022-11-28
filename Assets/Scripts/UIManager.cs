@@ -10,8 +10,10 @@ public class UIManager : MonoBehaviour
     private InventoryManager _playerEquipmentInventory;
     private InventoryManager _playerMaterialInventory;
     private List<GameObject> _partDropdowns = new List<GameObject>();
-    public List<GameObject> partDropDowns {get{return _partDropdowns;}} 
     private TMP_Dropdown _bluDropdown;
+    
+
+    public List<GameObject> partDropDowns {get{return _partDropdowns;}} 
     public GameObject blueprintDropdown;
     public GameObject templateDropdown;
     public GameObject inventoryPanel;
