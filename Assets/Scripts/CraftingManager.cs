@@ -25,6 +25,7 @@ public class CraftingManager : MonoBehaviour
             Blueprint craftingBlueprint = blueprints.Find((x) => x.name == UI.GetDropdownOption(UI.blueprintDropdown).text);
             List<PartType> partsList = new List<PartType>();
             List<RawMaterial> matList = new List<RawMaterial>();
+            List<RawMaterial> materialsUsed = new List<RawMaterial>();
             
             for (int i = 0; i < craftingBlueprint.partsRequired.Count(); i++){                
                 
@@ -39,12 +40,16 @@ public class CraftingManager : MonoBehaviour
                     }
                 }
             }
-
+            //Check to make sure there are enough of each material to craft
             foreach(RawMaterial mat in matList){
                 if(Singleton.Instance.Player_Raw_Inventory.Get(mat).stackSize>0){
+                    materialsUsed.Add(mat);
                     Singleton.Instance.Player_Raw_Inventory.Remove(mat);
                 } else{
                     Debug.Log("Not enough " + mat.name + " to craft!");
+                    foreach (RawMaterial refundMaterial in materialsUsed){
+                        Singleton.Instance.Player_Raw_Inventory.Add(refundMaterial);
+                    }
                     return;
                 }
             }

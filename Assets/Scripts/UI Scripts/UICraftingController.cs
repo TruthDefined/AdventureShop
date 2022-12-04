@@ -48,7 +48,7 @@ public class UICraftingController : MonoBehaviour
     /// </summary>
    public void OnBlueprintChoice(){
         activeBlueprint = _craftingManager.blueprints.Where(obj => obj.name == _blueprintDropdown.options[_blueprintDropdown.value].text).SingleOrDefault();     
-        float yOffset = -30f;
+        float yOffset = -60f;
         
         foreach (GameObject drop in _partDropdowns){
             Destroy(drop);
