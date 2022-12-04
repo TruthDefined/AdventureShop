@@ -1,3 +1,6 @@
+/// <summary>
+/// A container for an inventory item, the number of that item, and functions to add or remove from that stack.
+/// </summary>
 public class InventoryItem
 {
     public DataEntity data {get; private set;}

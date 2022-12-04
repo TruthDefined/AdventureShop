@@ -23,6 +23,7 @@ public class InventoryManager : MonoBehaviour
         m_itemDictionary = new Dictionary<DataEntity, InventoryItem>();
     }
 
+    /// <returns>InventoryItem containing passed data.</returns>
     public InventoryItem Get (DataEntity referenceData){
         if(m_itemDictionary.TryGetValue(referenceData, out InventoryItem value)){
             return value;
@@ -30,6 +31,9 @@ public class InventoryManager : MonoBehaviour
         return null;
     }
 
+    /// <summary>
+    /// Adds or increases count of passed item from inventory.
+    /// </summary>
     public void Add(DataEntity referenceData){
         if(IsInInventory(referenceData, out InventoryItem value)){
             value.AddToStack();
@@ -42,6 +46,10 @@ public class InventoryManager : MonoBehaviour
         //PrintInventory();
         onInventoryChangedEvent();
     }
+
+    /// <summary>
+    /// Reduces or Removes passed item from inventory.
+    /// </summary>
 
     public void Remove(DataEntity referenceData){
         if(IsInInventory(referenceData, out InventoryItem value))
@@ -56,12 +64,15 @@ public class InventoryManager : MonoBehaviour
         //PrintInventory();
     }
     
-    public bool IsInInventory(DataEntity e, out InventoryItem value){
-        //print(type);
+    /// <summary>
+    /// Checks to see if passed entity is included in this inventory. 
+    /// </summary>
+    /// <returns> InventoryItem containing passed entity as data. </returns>
+    public bool IsInInventory(DataEntity entity, out InventoryItem value){
         switch (type){
             case InventoryType.Equipment:
                 print("Equipment");
-                Equipment equip = e as Equipment;
+                Equipment equip = entity as Equipment;
                 foreach (Equipment item in m_itemDictionary.Keys){
                     if (item.partsRequired.SequenceEqual(equip.partsRequired) && item.usedMaterials.SequenceEqual(equip.usedMaterials)){
                         if(m_itemDictionary.TryGetValue(item, out InventoryItem val)){
@@ -72,11 +83,9 @@ public class InventoryManager : MonoBehaviour
                 }
                 value = null;
                 return false;
-            // case InventoryType.RawMaterials:
-            //     break;
             case InventoryType.RawMaterials:
                 //print("Raw");
-                RawMaterial raw = e as RawMaterial;
+                RawMaterial raw = entity as RawMaterial;
                 //print(raw.name);
                 if(m_itemDictionary.TryGetValue(raw, out InventoryItem val2)){
                     value = val2;
@@ -101,6 +110,8 @@ public class InventoryManager : MonoBehaviour
 
 }
 
+/// <summary>Possible inventory types.</summary>
+/// <remarks>Null indicates the players inventory</remarks>
 public enum InventoryType{
         Null,
         RawMaterials,

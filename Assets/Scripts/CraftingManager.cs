@@ -11,11 +11,14 @@ public class CraftingManager : MonoBehaviour
     [SerializeField] private List<RawMaterial> _rawMaterials;
     [SerializeField] private List<PartType> _partTypes;
 
-    private UIManager UI;
+    private UICraftingController UI;
     private void Start() {
         UI = Singleton.Instance.UIManager;
     }
 
+    /// <summary>
+    /// Craft a new Equipment based on selected Blueprint and current Dropdown options
+    /// </summary>
     public void Craft(){
         Debug.Log("Craft");
         if(UI.activeBlueprint){
@@ -53,11 +56,6 @@ public class CraftingManager : MonoBehaviour
 
         }
     }
-
-
-
-
-
 
 #region GetLists
     public List<Blueprint> blueprints

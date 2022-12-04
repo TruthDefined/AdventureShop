@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Linq;
 
-public class UIManager : MonoBehaviour
+public class UICraftingController : MonoBehaviour
 {
     private CraftingManager _craftingManager;
     private InventoryManager _playerEquipmentInventory;
@@ -83,7 +83,7 @@ public class UIManager : MonoBehaviour
                 //Populate the dropdown with acceptable items
                 foreach(RawMaterial raw in _craftingManager.rawMaterials){
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(raw.type)){
-                        if(_playerMaterialInventory.IsInInventory(raw, out InventoryItem rawItem)){
+                        if(_playerMaterialInventory.Get(raw).stackSize >0){
                             tempDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(raw.name,raw.icon));
                         }
                     }
