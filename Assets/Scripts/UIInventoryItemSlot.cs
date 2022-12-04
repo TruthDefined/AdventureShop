@@ -20,10 +20,10 @@ public class UIInventoryItemSlot : MonoBehaviour
     public void Set(InventoryItem item){
         //m_icon = item.data.icon;
         m_label.text = item.data.name;
-        if(item.stackSize <= 1){
-            m_stackObject.SetActive(false);
-            return;
-        }
+        // if(item.stackSize <= 0){
+        //     m_stackObject.SetActive(false);
+        //     return;
+        // }
         m_stackLabel.text = item.stackSize.ToString();
     }
 

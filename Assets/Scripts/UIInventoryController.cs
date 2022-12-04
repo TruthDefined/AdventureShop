@@ -10,6 +10,7 @@ public class UIInventoryController : MonoBehaviour
     public GameObject owner;
     private void Start() {
         InventoryManager.onInventoryChangedEvent += OnUpdateInventory;
+        OnUpdateInventory();
     }
 
     private void OnUpdateInventory(){
@@ -41,13 +42,6 @@ public class UIInventoryController : MonoBehaviour
             default:
                 break;
         }
-
-
-
-        foreach (InventoryItem item in Singleton.Instance.Player_Equipment_Inventory.inventory)
-        {
-            AddInventorySlot(item);
-        }
     }
 
     private void AddInventorySlot(InventoryItem item){
@@ -56,5 +50,6 @@ public class UIInventoryController : MonoBehaviour
 
         UIInventoryItemSlot slot = obj.GetComponent<UIInventoryItemSlot>();
         slot.Set(item);
+        //Debug.Log(item.data.name);
     }
 }

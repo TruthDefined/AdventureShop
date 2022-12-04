@@ -17,6 +17,7 @@ public class CraftingManager : MonoBehaviour
     }
 
     public void Craft(){
+        Debug.Log("Craft");
         if(UI.activeBlueprint){
             Blueprint craftingBlueprint = blueprints.Find((x) => x.name == UI.GetDropdownOption(UI.blueprintDropdown).text);
             List<PartType> partsList = new List<PartType>();
@@ -36,9 +37,18 @@ public class CraftingManager : MonoBehaviour
                 }
             }
 
+            foreach(RawMaterial mat in matList){
+                if(Singleton.Instance.Player_Raw_Inventory.Get(mat).stackSize>0){
+                    Singleton.Instance.Player_Raw_Inventory.Remove(mat);
+                } else{
+                    Debug.Log("Not enough " + mat.name + " to craft!");
+                    return;
+                }
+            }
+
             Equipment newEquipment = ScriptableObject.CreateInstance("Equipment") as Equipment;
             newEquipment.init(craftingBlueprint, partsList.ToArray(), matList.ToArray());
-            newEquipment.name = matList[0].name + partsList[0].name; 
+            newEquipment.name = matList[0].name + partsList[0].name;
             Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment);
 
         }

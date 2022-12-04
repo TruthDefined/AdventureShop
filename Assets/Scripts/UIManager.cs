@@ -37,6 +37,8 @@ public class UIManager : MonoBehaviour
         foreach (Blueprint bprint in _craftingManager.blueprints){
             _bluDropdown.options.Add(new TMP_Dropdown.OptionData(bprint.name,bprint.icon));
         }
+
+        
     }
 
 
@@ -60,11 +62,11 @@ public class UIManager : MonoBehaviour
         _partDropdowns.Clear();
 
         if(activeBlueprint){
+            //Create new dropdown for each possible part for selected blueprint
             for (int i = 0; i < activeBlueprint.partsRequired.Count(); i++){  
 
                 var tempDropdown = Instantiate(templateDropdown,blueprintDropdown.transform,false);
                 TMP_Text title = tempDropdown.GetComponent<UITitle>().title;
-
                 tempDropdown.transform.position = blueprintDropdown.transform.position;
                 tempDropdown.transform.Translate( new Vector3 (0f,yOffset *(i+1),0f));
                 tempDropdown.gameObject.name = activeBlueprint.partsRequired[i].name + " Dropdown";
@@ -78,10 +80,12 @@ public class UIManager : MonoBehaviour
                 }
 
                 tempDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData());
-
+                //Populate the dropdown with acceptable items
                 foreach(RawMaterial raw in _craftingManager.rawMaterials){
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(raw.type)){
-                        tempDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(raw.name,raw.icon));
+                        if(_playerMaterialInventory.IsInInventory(raw, out InventoryItem rawItem)){
+                            tempDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(raw.name,raw.icon));
+                        }
                     }
                 }
                     

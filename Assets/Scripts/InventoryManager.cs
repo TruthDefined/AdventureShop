@@ -39,7 +39,7 @@ public class InventoryManager : MonoBehaviour
             inventory.Add(newItem);
             m_itemDictionary.Add(referenceData, newItem);
         }
-        PrintInventory();
+        //PrintInventory();
         onInventoryChangedEvent();
     }
 
@@ -47,7 +47,7 @@ public class InventoryManager : MonoBehaviour
         if(IsInInventory(referenceData, out InventoryItem value))
             {
             value.RemoveFromStack();
-            if(value.stackSize == 0){
+            if(value.stackSize == -1){
                 inventory.Remove(value);
                 m_itemDictionary.Remove(referenceData);
             }
@@ -55,9 +55,9 @@ public class InventoryManager : MonoBehaviour
         onInventoryChangedEvent();
         //PrintInventory();
     }
-
+    
     public bool IsInInventory(DataEntity e, out InventoryItem value){
-        print(type);
+        //print(type);
         switch (type){
             case InventoryType.Equipment:
                 print("Equipment");
@@ -75,9 +75,9 @@ public class InventoryManager : MonoBehaviour
             // case InventoryType.RawMaterials:
             //     break;
             case InventoryType.RawMaterials:
-                print("Raw");
+                //print("Raw");
                 RawMaterial raw = e as RawMaterial;
-                print(raw.name);
+                //print(raw.name);
                 if(m_itemDictionary.TryGetValue(raw, out InventoryItem val2)){
                     value = val2;
                     return true;
