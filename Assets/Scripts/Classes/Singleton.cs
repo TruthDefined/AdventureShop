@@ -8,7 +8,7 @@ public class Singleton : MonoBehaviour
     public static Singleton Instance { get; private set; }
     public InventoryManager Player_Raw_Inventory { get; private set; }
     public InventoryManager Player_Equipment_Inventory {get; private set;}
-    public UICraftingController UIManager { get; private set; }
+    public UICraftingController UICraftingController { get; private set; }
     public CraftingManager CraftingManager {get; private set;}
     public bool debug = true;
     private void Awake()
@@ -22,10 +22,10 @@ public class Singleton : MonoBehaviour
 
         //If UI Manager is setup on Gameobject, grab it. Else, make a new one
         if(GetComponent<UICraftingController>()){
-            UIManager = GetComponent<UICraftingController>();
+            UICraftingController = GetComponent<UICraftingController>();
         }
         else{
-            UIManager = gameObject.AddComponent<UICraftingController>();
+            UICraftingController = gameObject.AddComponent<UICraftingController>();
         }
         //If Crafting Manager is setup on Gameobject, grab it. Else, make a new one
         if(GetComponent<CraftingManager>()){

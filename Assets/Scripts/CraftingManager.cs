@@ -13,7 +13,7 @@ public class CraftingManager : MonoBehaviour
 
     private UICraftingController UI;
     private void Start() {
-        UI = Singleton.Instance.UIManager;
+        UI = Singleton.Instance.UICraftingController;
     }
 
     /// <summary>

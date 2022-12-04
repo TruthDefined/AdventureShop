@@ -14,6 +14,8 @@ public class UICraftingController : MonoBehaviour
     public GameObject blueprintDropdown;
     public GameObject dropdownTemplate;
     public Blueprint activeBlueprint;
+
+    public MouseFollower mouseFollower;
     void Start()
     {
         _blueprintDropdown = blueprintDropdown.GetComponent<TMP_Dropdown>();
@@ -30,6 +32,8 @@ public class UICraftingController : MonoBehaviour
         foreach (Blueprint bprint in _craftingManager.blueprints){
             _blueprintDropdown.options.Add(new TMP_Dropdown.OptionData(bprint.name,bprint.icon));
         }
+
+        mouseFollower.Toggle(false);
     }
 
 
@@ -43,6 +47,18 @@ public class UICraftingController : MonoBehaviour
     public int GetDropdownValue(GameObject dropdown){
         return dropdown.GetComponent<TMP_Dropdown>().value;
     } 
+
+    private void HandleBeginDrag(InventoryItem obj){
+        mouseFollower.Toggle(true);
+        mouseFollower.SetData(obj);
+    }
+
+    private void HandleEndDrag(InventoryItem obj){
+        mouseFollower.Toggle(false);
+        
+    }
+
+
     /// <summary>
     /// Populate blueprint creation dropdowns.
     /// </summary>
