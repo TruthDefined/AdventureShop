@@ -962,8 +962,8 @@ GameObject:
   m_Component:
   - component: {fileID: 979605271}
   - component: {fileID: 979605270}
-  - component: {fileID: 979605272}
   - component: {fileID: 979605273}
+  - component: {fileID: 979605274}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1035,23 +1035,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &979605272
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979605269}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4f9952fef68f7b46bfb33f3ecdc40b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  blueprintDropdown: {fileID: 872020407}
-  templateDropdown: {fileID: 5610365972054710826, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
-  inventoryPanel: {fileID: 1483138882}
-  inventoryLabelPrefab: {fileID: 646910606293967981, guid: d2c8c3d2c48aebc4ab87a199a44fbf7b, type: 3}
-  activeBlueprint: {fileID: 0}
 --- !u!114 &979605273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,6 +1047,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6dc0c9bb30eda74aa2bf7e08d3940c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 1
+--- !u!114 &979605274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979605269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39d3e910cc874164da8fec6856e0b78e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blueprintDropdown: {fileID: 872020407}
+  dropdownTemplate: {fileID: 5610365972054710826, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
+  activeBlueprint: {fileID: 0}
 --- !u!1 &1042617022
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,7 +1509,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 160, y: 310}
+  m_AnchoredPosition: {x: 353, y: 291}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1483138882
@@ -1627,7 +1626,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -30}
+  m_AnchoredPosition: {x: 353, y: -24}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1598900182
@@ -2512,11 +2511,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5610365972054710820, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 200
+      value: 316
       objectReference: {fileID: 0}
     - target: {fileID: 5610365972054710820, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: -72
       objectReference: {fileID: 0}
     - target: {fileID: 5610365972054710820, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2537,7 +2536,15 @@ PrefabInstance:
     - target: {fileID: 5610365972054710821, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 979605272}
+      objectReference: {fileID: 979605274}
+    - target: {fileID: 5610365972054710821, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnBlueprintChoice
+      objectReference: {fileID: 0}
+    - target: {fileID: 5610365972054710821, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: UICraftingController, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 5610365972054710826, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_Name
       value: Blueprint Dropdown

@@ -1,7 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Points to all Player manager and controller scripts for easy reference.
+/// </summary>
 public class Singleton : MonoBehaviour
 {
     public static Singleton Instance { get; private set; }
