@@ -18,7 +18,7 @@ public class UICraftingController : MonoBehaviour
     public MouseFollower mouseFollower;
     void Start()
     {
-        _blueprintDropdown = blueprintDropdown.GetComponent<TMP_Dropdown>();
+        _blueprintDropdown = blueprintDropdown.GetComponentInChildren<TMP_Dropdown>();
         TMP_Text title = blueprintDropdown.GetComponent<UITitle>().title;
         title.text = "Blueprint";
 
@@ -39,13 +39,13 @@ public class UICraftingController : MonoBehaviour
 
     /// <returns>The Gameobject represented by the selection of the dropdown. </returns>
     public TMP_Dropdown.OptionData GetDropdownOption(GameObject dropdown){
-        TMP_Dropdown temp = dropdown.GetComponent<TMP_Dropdown>();
+        TMP_Dropdown temp = dropdown.GetComponentInChildren<TMP_Dropdown>();
         return temp.options[temp.value];
     } 
 
     /// <returns> The int value of the option selected on the dropdown. </returns>
     public int GetDropdownValue(GameObject dropdown){
-        return dropdown.GetComponent<TMP_Dropdown>().value;
+        return dropdown.GetComponentInChildren<TMP_Dropdown>().value;
     } 
 
     private void HandleBeginDrag(InventoryItem obj){
@@ -62,7 +62,7 @@ public class UICraftingController : MonoBehaviour
     /// <summary>
     /// Populate blueprint creation dropdowns.
     /// </summary>
-   public void OnBlueprintChoice(){
+   public void OnBlueprintChoice(){ 
         activeBlueprint = _craftingManager.blueprints.Where(obj => obj.name == _blueprintDropdown.options[_blueprintDropdown.value].text).SingleOrDefault();     
         float yOffset = -60f;
         
@@ -91,12 +91,12 @@ public class UICraftingController : MonoBehaviour
                     title.color = Color.green;
                 }
 
-                tempDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData());
+                tempDropdown.GetComponentInChildren<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData());
                 //Populate the dropdown with acceptable items
                 foreach(RawMaterial raw in _craftingManager.rawMaterials){
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(raw.type)){
                         if(Singleton.Instance.Player_Raw_Inventory.Get(raw).stackSize >0){
-                            tempDropdown.GetComponent<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(raw.name,raw.icon));
+                            tempDropdown.GetComponentInChildren<TMP_Dropdown>().options.Add(new TMP_Dropdown.OptionData(raw.name,raw.icon));
                         }
                     }
                 }
