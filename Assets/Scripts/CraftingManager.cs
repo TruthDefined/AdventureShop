@@ -56,7 +56,19 @@ public class CraftingManager : MonoBehaviour
 
             Equipment newEquipment = ScriptableObject.CreateInstance("Equipment") as Equipment;
             newEquipment.init(craftingBlueprint, partsList.ToArray(), matList.ToArray());
-            newEquipment.name = matList[0].name + partsList[0].name;
+
+            string importantMatNames = "";
+
+            for (int i = 0; i < matList.Count; i++)
+            {
+                if(!partsList[i].optional){
+                    if(importantMatNames != ""){
+                        importantMatNames += ", ";
+                    }
+                    importantMatNames += matList[i].name;
+                }
+            }
+            newEquipment.name = importantMatNames + " " + craftingBlueprint.name;
             Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment);
 
         }

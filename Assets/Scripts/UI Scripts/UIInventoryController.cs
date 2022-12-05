@@ -47,6 +47,7 @@ public class UIInventoryController : MonoBehaviour
     private void AddInventorySlot(InventoryItem item){
         GameObject obj = Instantiate(m_slotPrefab);
         obj.transform.SetParent(transform,false);
+        obj.name = "Inventory Slot - " + item.data.name ;
         UIInventoryItemSlot slot = obj.GetComponent<UIInventoryItemSlot>();
         slot.item = item;
         

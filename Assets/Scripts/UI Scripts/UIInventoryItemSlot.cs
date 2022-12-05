@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 public class UIInventoryItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Image iconImage;
-    public GameObject stackLabel;    
+    public GameObject stackLabel;  
+    public GameObject nameLabel;  
     private TMP_Text m_label;
     private Transform parentAfterDrag;
     private InventoryItem _item;
@@ -27,7 +28,7 @@ public class UIInventoryItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandle
     }
 
     private void Awake() {
-        m_label = GetComponent<TMP_Text>();
+        m_label = nameLabel.GetComponent<TMP_Text>();
     }
 
     public void Add(){
