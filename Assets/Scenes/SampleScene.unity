@@ -900,7 +900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e36fe68cf94d694d9134e19ef3b32ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_slotPrefab: {fileID: 6471575779285893542, guid: 17498a235a0759342b8f14331b68ce88, type: 3}
+  m_slotPrefab: {fileID: 2206311497599458602, guid: c4f971e8ae736104791fdb9a0b0896dd, type: 3}
+  m_itemPrefab: {fileID: 6471575779285893542, guid: 17498a235a0759342b8f14331b68ce88, type: 3}
   type: 2
   owner: {fileID: 0}
 --- !u!114 &670719511
@@ -990,12 +991,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 809405311}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395a9c9aee7ae9e408e06ab304c0a88a, type: 3}
+  m_Script: {fileID: 11500000, guid: d78dcf210605fed4c93445ce0763007e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   iconImage: {fileID: 1911461859}
   stackLabel: {fileID: 0}
   nameLabel: {fileID: 0}
+  parentAfterDrag: {fileID: 0}
 --- !u!1 &872020407 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5610365972054710826, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
@@ -1230,7 +1232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 189.5, y: 0}
+  m_AnchoredPosition: {x: 200, y: 0}
   m_SizeDelta: {x: 100, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1065580481
@@ -1245,7 +1247,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e36fe68cf94d694d9134e19ef3b32ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_slotPrefab: {fileID: 774170600048971473, guid: 1346228e24ede014b8e3b8b65855bf58, type: 3}
+  m_slotPrefab: {fileID: 2206311497599458602, guid: c4f971e8ae736104791fdb9a0b0896dd, type: 3}
+  m_itemPrefab: {fileID: 774170600048971473, guid: 1346228e24ede014b8e3b8b65855bf58, type: 3}
   type: 1
   owner: {fileID: 0}
 --- !u!114 &1065580482
@@ -1718,7 +1721,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 220, y: 0}
+  m_AnchoredPosition: {x: 198, y: 0}
   m_SizeDelta: {x: -1200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1598900180
@@ -2921,5 +2924,6 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5675741130819571121, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}

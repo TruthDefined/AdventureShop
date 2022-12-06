@@ -3,13 +3,14 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class UIInventoryItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UIInventoryItemContainer : MonoBehaviour
 {
     public Image iconImage;
     public GameObject stackLabel;  
     public GameObject nameLabel;  
     private TMP_Text m_label;
-    private Transform parentAfterDrag;
+    [HideInInspector]
+    public Transform parentAfterDrag;
     private InventoryItem _item;
 
     public InventoryItem item{
@@ -40,22 +41,27 @@ public class UIInventoryItemSlot : MonoBehaviour, IBeginDragHandler, IDragHandle
         Singleton.Instance.Player_Raw_Inventory.Remove(temp.data as RawMaterial);
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        parentAfterDrag = iconImage.transform.parent;
-        iconImage.transform.SetParent(transform.root);
-        iconImage.transform.SetAsLastSibling();
-    }
+    // public void OnBeginDrag(PointerEventData eventData)
+    // {
+    //     parentAfterDrag = iconImage.transform.parent;
+    //     iconImage.transform.SetParent(transform.root);
+    //     iconImage.transform.SetAsLastSibling();
+    // }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        iconImage.transform.position = Input.mousePosition;
-    }
+    // public void OnDrag(PointerEventData eventData)
+    // {
+    //     iconImage.transform.position = Input.mousePosition;
+    // }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        print("EndDrag");
-        iconImage.transform.SetParent(parentAfterDrag);
-        // iconImage.transform.SetPositionAndRotation(parentAfterDrag.position, parentAfterDrag.rotation);
-    }
+    // public void OnEndDrag(PointerEventData eventData)
+    // {
+    //     print("EndDrag");
+    //     iconImage.transform.SetParent(parentAfterDrag);
+    //     // iconImage.transform.SetPositionAndRotation(parentAfterDrag.position, parentAfterDrag.rotation);
+    // }
+
+    // public void OnDrop(PointerEventData eventData)
+    // {
+    //     GameObject dropped = eventData.pointerDrag;
+    // }
 }

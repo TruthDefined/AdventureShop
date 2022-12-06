@@ -19,7 +19,7 @@ public class UICraftingController : MonoBehaviour
     void Start()
     {
         _blueprintDropdown = blueprintDropdown.GetComponent<BlueprintSelect>().Dropdown;
-        TMP_Text title = blueprintDropdown.GetComponent<UITitle>().title;
+        TMP_Text title = blueprintDropdown.GetComponent<BlueprintSelect>().Title;
         title.text = "Blueprint";
 
         _craftingManager = Singleton.Instance.CraftingManager;
@@ -79,7 +79,7 @@ public class UICraftingController : MonoBehaviour
             for (int i = 0; i < activeBlueprint.partsRequired.Count(); i++){  
 
                 var tempDropdown = Instantiate(dropdownTemplate,blueprintDropdown.transform,false);
-                TMP_Text title = tempDropdown.GetComponent<UITitle>().title;
+                TMP_Text title = tempDropdown.GetComponent<BlueprintSelect>().Title;
                 tempDropdown.transform.position = blueprintDropdown.transform.position;
                 tempDropdown.transform.Translate( new Vector3 (0f,yOffset *(i+1),0f));
                 tempDropdown.gameObject.name = activeBlueprint.partsRequired[i].name + " Dropdown";
@@ -93,6 +93,7 @@ public class UICraftingController : MonoBehaviour
                 }
 
                 tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData());
+                tempDropdown.GetComponent<BlueprintSelect>().type = activeBlueprint.partsRequired[i].acceptableMaterials;
                 //Populate the dropdown with acceptable items
                 foreach(RawMaterial raw in _craftingManager.rawMaterials){
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(raw.type)){

@@ -6,8 +6,11 @@ public class UIInventoryController : MonoBehaviour
 {
 
     public GameObject m_slotPrefab;
+    public GameObject m_itemPrefab;
     public InventoryType type;
     public GameObject owner;
+
+    private List<GameObject> inventorySlots = new List<GameObject>();
     private void Start() {
         InventoryManager.onInventoryChangedEvent += OnUpdateInventory;
         OnUpdateInventory();
@@ -25,17 +28,21 @@ public class UIInventoryController : MonoBehaviour
         switch (type){
             case InventoryType.Equipment:
                 if(!owner){
+                    inventorySlots = new List<GameObject>();
                     foreach (InventoryItem item in Singleton.Instance.Player_Equipment_Inventory.inventory)
                     {
-                        AddInventorySlot(item);
+                        GameObject slot = CreateInventorySlot();
+                        AddItemToSlot(slot, item);
                     }
                 }
                 break;
             case InventoryType.RawMaterials:
                 if(!owner){
+                    inventorySlots = new List<GameObject>();
                     foreach (InventoryItem item in Singleton.Instance.Player_Raw_Inventory.inventory)
                     {
-                        AddInventorySlot(item);
+                        GameObject slot = CreateInventorySlot();
+                        AddItemToSlot(slot, item);
                     }
                 }
                 break;
@@ -44,12 +51,19 @@ public class UIInventoryController : MonoBehaviour
         }
     }
 
-    private void AddInventorySlot(InventoryItem item){
+    private GameObject CreateInventorySlot(){
         GameObject obj = Instantiate(m_slotPrefab);
         obj.transform.SetParent(transform,false);
-        obj.name = "Inventory Slot - " + item.data.name ;
-        UIInventoryItemSlot slot = obj.GetComponent<UIInventoryItemSlot>();
-        slot.item = item;
-        
+        inventorySlots.Add(obj);
+        obj.name = "Inventory Slot - " + inventorySlots.Count;
+        return obj;
+    }
+
+    private void AddItemToSlot(GameObject slot, InventoryItem item){
+        GameObject obj = Instantiate(m_itemPrefab);
+        obj.transform.SetParent(slot.transform,false);
+        obj.name = item.data.name ;
+        UIInventoryItemContainer container = obj.GetComponent<UIInventoryItemContainer>();
+        container.item = item;
     }
 }
