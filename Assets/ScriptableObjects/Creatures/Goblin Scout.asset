@@ -12,11 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08bcbc43a6514ac44beaeb65028e751b, type: 3}
   m_Name: Goblin Scout
   m_EditorClassIdentifier: 
-  entityType: 
+  entityType: Creature
   icon: {fileID: 0}
   abilities: []
-  species: {fileID: 0}
-  inventory: {fileID: 0}
-  equipment: {fileID: 0}
+  species: {fileID: 11400000, guid: e80448e95ae46ae4fa1217537b267578, type: 2}
   artPrefab: {fileID: 0}
   stats: 

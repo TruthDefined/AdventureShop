@@ -7,4 +7,10 @@ public class RawMaterial : HistoricalEntity
     public int price;
     public string notes;
     
+    public void Init(string name, Location location, Creature harvester, Creature originalOwner, MaterialType type, int price, string notes){
+        base.Init(name,location,harvester,originalOwner);
+        this.type = type;
+        this.price = price;
+        this.notes = notes;
+    }
 }

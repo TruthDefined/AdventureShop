@@ -12,7 +12,7 @@ public class Creature : HistoricalEntity
     //TODO: Figure out how we're going to do stats in this game???
     public int[] stats;
 
-    public void Init(string name, DataEntity home, Species species, Equipment[] startingGear = null, RawMaterial[] startingMats = null){
+    public void Init(string name, Location home, Species species, Equipment[] startingGear = null, RawMaterial[] startingMats = null){
         base.Init(name, home);
         this.species = species;
         foreach(Equipment item in startingGear){

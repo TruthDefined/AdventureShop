@@ -11,7 +11,7 @@ public class HistoricalEntity : DataEntity
     private DataEntity[] _origin = new DataEntity[3];
     private bool originLock = false;
     private List<DataEntity> _history = new List<DataEntity>();
-    public readonly List<DateTime> historyDates = new List<DateTime>();
+    public List<DateTime> historyDates{get; private set;} = new List<DateTime>();
     /// <summary>
     /// Origin of Entity
     /// </summary>
@@ -32,7 +32,7 @@ public class HistoricalEntity : DataEntity
     /// <param name="harvester">[1] = Harvester\Slayer of Entity (Dwor the Dwarf)</param>
     /// <param name="OriginalOwner">[2] = Original Owner (Dagon the Dragon)</param>
     /// <returns>True if new values are stored</returns>
-    public bool SetOrigin(DataEntity location, DataEntity harvester = null, DataEntity OriginalOwner = null){
+    public bool SetOrigin(Location location, Creature harvester = null, Creature OriginalOwner = null){
         if(!originLock){
             _origin[0] = location;
             _origin[1] = harvester;
@@ -76,12 +76,12 @@ public class HistoricalEntity : DataEntity
         }
         
     }
-    public void Init(string name, DataEntity location){
+    public void Init(string name, Location location){
         base.Init(name);
         SetOrigin(location);
     }
 
-    public void Init(string name, DataEntity location, DataEntity harvester, DataEntity originalOwner){
+    public void Init(string name, Location location, Creature harvester, Creature originalOwner){
         base.Init(name);
         SetOrigin(location,harvester,originalOwner);
     }

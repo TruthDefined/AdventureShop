@@ -19,7 +19,7 @@ public class AdventurerParty : HistoricalEntity
     /// </summary>
     public InventoryManager inventory;
 
-    public void Init(string name, DataEntity location, List<Adventurer> adventurers, Sprite crest = null){
+    public void Init(string name, Location location, List<Adventurer> adventurers, Sprite crest = null){
         base.Init(name, location);
         this.adventurers = adventurers;
         this.crest = crest;

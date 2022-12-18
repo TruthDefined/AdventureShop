@@ -10,5 +10,8 @@ public class Blueprint : DataEntity
     /// </value>
     public PartType[] partsRequired;
     
-    
+    public void Init(string name, PartType[] partsRequired){
+        base.Init(name);
+        this.partsRequired = partsRequired;
+    }
 }

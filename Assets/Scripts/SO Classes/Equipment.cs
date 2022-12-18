@@ -24,10 +24,11 @@ public class Equipment : HistoricalEntity
     /// <param name="_type"> Blueprint used to generate Equipment</param>
     /// <param name="_partsRequired">Parts used to to generate Equipment</param>
     /// <param name="_usedMaterials">Materials used to to generate Equipment</param>
-    public void init(Blueprint _type, PartType[] _partsRequired, RawMaterial[] _usedMaterials){
-        equipmentType = _type;
-        partsRequired = _partsRequired;
-        usedMaterials = _usedMaterials;
+    public void Init(string name, Location location, Creature crafter, Creature originalOwner, Blueprint _type, PartType[] _partsRequired, RawMaterial[] _usedMaterials){
+        base.Init(name,location,crafter,originalOwner);
+        this.equipmentType = _type;
+        this.partsRequired = _partsRequired;
+        this.usedMaterials = _usedMaterials;
     }
 
 }
