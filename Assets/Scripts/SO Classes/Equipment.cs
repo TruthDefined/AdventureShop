@@ -3,7 +3,7 @@ using UnityEngine;
 /// <summary>
 ///  An Equipment is created by applying materials to the parts of a blueprint
 /// </summary>
-public class Equipment : DataEntity
+public class Equipment : HistoricalEntity
 {
     /// <value>Blueprint used to generate Equipment</value>
     public Blueprint equipmentType {get; private set;}
