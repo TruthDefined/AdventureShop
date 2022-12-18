@@ -55,7 +55,6 @@ public class CraftingManager : MonoBehaviour
             }
 
             Equipment newEquipment = ScriptableObject.CreateInstance("Equipment") as Equipment;
-            newEquipment.init(craftingBlueprint, partsList.ToArray(), matList.ToArray());
 
             string importantMatNames = "";
 
@@ -68,6 +67,8 @@ public class CraftingManager : MonoBehaviour
                     importantMatNames += matList[i].name;
                 }
             }
+            //TODO: Player should be designed as a CREATURE for ease of crafting Init (Or equipment needs special Init just for player-crafted status)
+            newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, new Location(), new Creature(), new Creature(), craftingBlueprint, partsList.ToArray(), matList.ToArray());
             newEquipment.name = importantMatNames + " " + craftingBlueprint.name;
             Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment);
 
