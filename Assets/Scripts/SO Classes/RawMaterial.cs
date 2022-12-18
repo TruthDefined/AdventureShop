@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RawMaterial", menuName = "ScriptableObjects/RawMaterial", order = 4)]
+[CreateAssetMenu(fileName = "RawMaterial", menuName = "ScriptableObjects/RawMaterial")]
 public class RawMaterial : HistoricalEntity
 {
     public MaterialType type;

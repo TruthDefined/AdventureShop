@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 /// <summary>
@@ -10,6 +11,7 @@ public class HistoricalEntity : DataEntity
     private DataEntity[] _origin = new DataEntity[3];
     private bool originLock = false;
     private List<DataEntity> _history = new List<DataEntity>();
+    public readonly List<DateTime> historyDates = new List<DateTime>();
     /// <summary>
     /// Origin of Entity
     /// </summary>
@@ -27,10 +29,10 @@ public class HistoricalEntity : DataEntity
     /// Origin of Entity
     /// </summary>
     /// <param name="location">Location of Origin (Ancient Forest)</param>
-    /// <param name="harvester">[1] = Harvester of Entity (Dwor the Dwarf)</param>
+    /// <param name="harvester">[1] = Harvester\Slayer of Entity (Dwor the Dwarf)</param>
     /// <param name="OriginalOwner">[2] = Original Owner (Dagon the Dragon)</param>
     /// <returns>True if new values are stored</returns>
-    public bool SetOrigin(DataEntity location, DataEntity harvester, DataEntity OriginalOwner = null){
+    public bool SetOrigin(DataEntity location, DataEntity harvester = null, DataEntity OriginalOwner = null){
         if(!originLock){
             _origin[0] = location;
             _origin[1] = harvester;
@@ -54,10 +56,18 @@ public class HistoricalEntity : DataEntity
         }
     }
 
-    public bool AddToHistory(DataEntity newHistory){
+    public bool AddToHistory(DataEntity newHistory, DateTime date = new DateTime()){
+        DateTime today = Singleton.Instance.TimeManager.GetCurrentDate();
         try
         {
             _history.Add(newHistory);
+            
+            //If no date is passed, save event date as today
+            if(date == default){
+                historyDates.Add(today);
+            } else{
+                historyDates.Add(date); 
+            }
             return true;
         }
         catch (System.Exception)
@@ -65,6 +75,15 @@ public class HistoricalEntity : DataEntity
             return false;
         }
         
+    }
+    public void Init(string name, DataEntity location){
+        base.Init(name);
+        SetOrigin(location);
+    }
+
+    public void Init(string name, DataEntity location, DataEntity harvester, DataEntity originalOwner){
+        base.Init(name);
+        SetOrigin(location,harvester,originalOwner);
     }
 
 }

@@ -10,6 +10,7 @@ public class Singleton : MonoBehaviour
     public InventoryManager Player_Equipment_Inventory {get; private set;}
     public UICraftingController UICraftingController { get; private set; }
     public CraftingManager CraftingManager {get; private set;}
+    public TimeManager TimeManager {get; private set;}
     public bool debug = true;
     private void Awake()
     {
@@ -19,7 +20,7 @@ public class Singleton : MonoBehaviour
             return;
         }
         Instance = this;
-
+        TimeManager = gameObject.AddComponent<TimeManager>();
         //If UI Manager is setup on Gameobject, grab it. Else, make a new one
         if(GetComponent<UICraftingController>()){
             UICraftingController = GetComponent<UICraftingController>();
@@ -35,8 +36,8 @@ public class Singleton : MonoBehaviour
             CraftingManager = gameObject.AddComponent<CraftingManager>();
         }
         //Create player inventories
-        Player_Raw_Inventory = gameObject.AddComponent<InventoryManager>().SetType(InventoryType.RawMaterials);
-        Player_Equipment_Inventory = gameObject.AddComponent<InventoryManager>().SetType(InventoryType.Equipment);
+        Player_Raw_Inventory = new InventoryManager(InventoryType.RawMaterials);
+        Player_Equipment_Inventory = new InventoryManager(InventoryType.Equipment);
     }
     private void Start() {
         //Add all raw materials currently registered to the players inventory
@@ -44,6 +45,7 @@ public class Singleton : MonoBehaviour
             foreach(RawMaterial mat in CraftingManager.rawMaterials){
                 Player_Raw_Inventory.Add(mat);
             }
+            //Debug.Log(TimeManager.GetCurrentDate());
         }
         
     }

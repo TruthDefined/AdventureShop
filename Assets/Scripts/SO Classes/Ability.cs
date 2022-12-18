@@ -1,5 +1,5 @@
 using UnityEngine;
-[CreateAssetMenu(fileName = "Ability", menuName = "ScriptableObjects/Ability", order = 5)]
+[CreateAssetMenu(fileName = "Ability", menuName = "ScriptableObjects/Ability")]
 public class Ability : DataEntity
 {
     public string effect;

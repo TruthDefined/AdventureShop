@@ -1,5 +1,5 @@
 using UnityEngine;
-[CreateAssetMenu(fileName = "Blueprint", menuName = "ScriptableObjects/Blueprint", order = 6)]
+[CreateAssetMenu(fileName = "Blueprint", menuName = "ScriptableObjects/Blueprint")]
 /// <summary>
 ///  An Equipment is created by applying materials to the parts of a blueprint
 /// </summary>

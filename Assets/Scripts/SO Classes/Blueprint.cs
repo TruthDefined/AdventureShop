@@ -1,5 +1,5 @@
 using UnityEngine;
-[CreateAssetMenu(fileName = "Blueprint", menuName = "ScriptableObjects/Blueprint", order = 1)]
+[CreateAssetMenu(fileName = "Blueprint", menuName = "ScriptableObjects/Blueprint")]
 /// <summary>
 /// A Blueprint contains an array of Parts that are required to make a piece of Equipment
 /// </summary>

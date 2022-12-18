@@ -3,24 +3,27 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Linq;
 
-public class InventoryManager : MonoBehaviour
+/// <summary>
+/// Inventory management class for all entitys (and the player) that has an inventory
+/// </summary>
+/// <value>List (InventoryItem) inventory</value>
+public class InventoryManager
 {
     public delegate void OnInventoryChangedEvent();
     public static OnInventoryChangedEvent onInventoryChangedEvent;
-    private Dictionary<DataEntity,InventoryItem> m_itemDictionary;
+    //TODO: I probably dont need both the Dictionary and List here... i should fix that
+    private Dictionary<DataEntity,InventoryItem> m_itemDictionary = new Dictionary<DataEntity, InventoryItem>();
     
-    public List<InventoryItem> inventory {get; private set;}
+    public List<InventoryItem> inventory {get; private set;} = new List<InventoryItem>();
     public InventoryType type {get; private set;}
 
+    public InventoryManager(InventoryType type){
+        SetType(type);
+    }
 
     public InventoryManager SetType(InventoryType t){
         type = t;
         return this;
-    }
-
-    private void Awake() {
-        inventory = new List<InventoryItem>();
-        m_itemDictionary = new Dictionary<DataEntity, InventoryItem>();
     }
 
     /// <returns>InventoryItem containing passed data.</returns>
@@ -71,8 +74,8 @@ public class InventoryManager : MonoBehaviour
     public bool IsInInventory(DataEntity entity, out InventoryItem value){
         switch (type){
             case InventoryType.Equipment:
-                print("Equipment");
                 Equipment equip = entity as Equipment;
+
                 foreach (Equipment item in m_itemDictionary.Keys){
                     if (item.partsRequired.SequenceEqual(equip.partsRequired) && item.usedMaterials.SequenceEqual(equip.usedMaterials)){
                         if(m_itemDictionary.TryGetValue(item, out InventoryItem val)){
@@ -84,9 +87,8 @@ public class InventoryManager : MonoBehaviour
                 value = null;
                 return false;
             case InventoryType.RawMaterials:
-                //print("Raw");
                 RawMaterial raw = entity as RawMaterial;
-                //print(raw.name);
+
                 if(m_itemDictionary.TryGetValue(raw, out InventoryItem val2)){
                     value = val2;
                     return true;
@@ -95,7 +97,7 @@ public class InventoryManager : MonoBehaviour
                 return false;
 
             default:
-                print("Default Case???");
+                Debug.Log("Default Case???");
                 value = null;
                 return false;
         }
