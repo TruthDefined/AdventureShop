@@ -11,6 +11,7 @@ public class Singleton : MonoBehaviour
     public UICraftingController UICraftingController { get; private set; }
     public CraftingManager CraftingManager {get; private set;}
     public TimeManager TimeManager {get; private set;}
+    public GameObject TooltipPrefab;
     public bool debug = true;
     private void Awake()
     {
