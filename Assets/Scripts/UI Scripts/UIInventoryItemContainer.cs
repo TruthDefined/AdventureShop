@@ -7,7 +7,6 @@ public class UIInventoryItemContainer : UIContainer
 {
     public GameObject stackLabel;  
     public GameObject nameLabel;  
-    [HideInInspector]
 
 
     private void Awake() {
@@ -21,6 +20,20 @@ public class UIInventoryItemContainer : UIContainer
     public void Remove(){
         var temp = Singleton.Instance.Player_Raw_Inventory.inventory.Find((x) => x.data.name == m_label.text);
         Singleton.Instance.Player_Raw_Inventory.Remove(temp.data as RawMaterial);
+    }
+
+    new public SlotItem item{
+        get{
+            return _item;
+        }
+        set{
+            _item = value;
+            iconImage.sprite = _item.data.icon;
+            if(m_label){
+                m_label.text = _item.data.name;
+            }
+            stackLabel.GetComponent<TMP_Text>().text = _item.stackSize.ToString();
+        }
     }
 
     // public void OnBeginDrag(PointerEventData eventData)
