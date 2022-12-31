@@ -2,15 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIInventoryController : MonoBehaviour
+public class UIInventoryController : UIDataDisplayController
 {
 
-    public GameObject m_slotPrefab;
-    public GameObject m_itemPrefab;
     public InventoryType type;
     public GameObject owner;
-
-    private List<GameObject> inventorySlots = new List<GameObject>();
     private void Start() {
         InventoryManager.onInventoryChangedEvent += OnUpdateInventory;
         OnUpdateInventory();
@@ -49,21 +45,5 @@ public class UIInventoryController : MonoBehaviour
             default:
                 break;
         }
-    }
-
-    private GameObject CreateInventorySlot(){
-        GameObject obj = Instantiate(m_slotPrefab);
-        obj.transform.SetParent(transform,false);
-        inventorySlots.Add(obj);
-        obj.name = "Inventory Slot - " + inventorySlots.Count;
-        return obj;
-    }
-
-    private void AddItemToSlot(GameObject slot, InventoryItem item){
-        GameObject obj = Instantiate(m_itemPrefab);
-        obj.transform.SetParent(slot.transform,false);
-        obj.name = item.data.name ;
-        UIInventoryItemContainer container = obj.GetComponent<UIInventoryItemContainer>();
-        container.item = item;
     }
 }

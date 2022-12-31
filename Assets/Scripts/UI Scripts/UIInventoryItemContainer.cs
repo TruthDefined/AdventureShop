@@ -3,30 +3,12 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 
-public class UIInventoryItemContainer : MonoBehaviour
+public class UIInventoryItemContainer : UIContainer
 {
-    public Image iconImage;
     public GameObject stackLabel;  
     public GameObject nameLabel;  
-    private TMP_Text m_label;
     [HideInInspector]
-    public Transform parentAfterDrag;
-    private InventoryItem _item;
 
-    public InventoryItem item{
-        get{
-            return _item;
-        }
-        set{
-            _item = value;
-            iconImage.sprite = _item.data.icon;
-            if(m_label){
-                m_label.text = _item.data.name;
-            }
-            stackLabel.GetComponent<TMP_Text>().text = _item.stackSize.ToString();
-        }
-
-    }
 
     private void Awake() {
         m_label = nameLabel.GetComponent<TMP_Text>();

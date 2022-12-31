@@ -1,12 +1,13 @@
 /// <summary>
 /// A container for an inventory item, the number of that item, and functions to add or remove from that stack.
 /// </summary>
-public class InventoryItem
+public class InventoryItem : SlotItem
 {
-    public DataEntity data {get; private set;}
-    public int stackSize {get; private set;}
+    // public DataEntity data {get; private set;}
+    // public int stackSize {get; private set;}
 
-    public InventoryItem(DataEntity source){
+    public InventoryItem(DataEntity source) : base(source)
+    {
         data = source;
         AddToStack();
     }

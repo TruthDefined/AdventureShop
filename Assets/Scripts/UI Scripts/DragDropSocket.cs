@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class InventorySlot : MonoBehaviour, IDropHandler
+public class DragDropSocket : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
 {
+    public bool mouseover = false;
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
         GameObject droppedItem = eventData.pointerDrag;
@@ -28,11 +29,30 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     }
         
     public bool isValidSlot(GameObject droppedItem){
-        if(droppedItem.GetComponent<DraggableItem>().parentAfterDrag.GetComponentInParent<UIInventoryController>().type == GetComponentInParent<UIInventoryController>().type){
-            return true;
+        if(GetComponentInParent<UIInventoryController>()){
+            if(droppedItem.GetComponent<DraggableItem>().parentAfterDrag.GetComponentInParent<UIInventoryController>().type == GetComponentInParent<UIInventoryController>().type){
+                return true;
+            }
+            else{
+                Debug.Log("Not a valid drop location");
+                return false;
+            }
         }
-        else{
-            return false;
+        Debug.Log("Not Inventory");
+        return false;
+        
+    }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GameObject droppedItem = eventData.pointerEnter;
+        UIContainer itemContainer = droppedItem.GetComponentInChildren<UIContainer>();
+        mouseover = true;
+        if(itemContainer){
+            Debug.Log("Mouse enter" + itemContainer.item.data.name);
         }
+        
+    }
+    public void OnPointerExit(PointerEventData eventdata){
+        mouseover = false;
     }
 }

@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 8129809194385921349}
   - component: {fileID: 1367454032124354596}
   m_Layer: 5
-  m_Name: UI Item Socket
+  m_Name: UI Inventory Item
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
