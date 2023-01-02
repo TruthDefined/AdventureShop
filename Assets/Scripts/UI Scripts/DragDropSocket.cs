@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class DragDropSocket : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler
+public class DragDropSocket : MonoBehaviour, IDropHandler
 {
-    public bool mouseover = false;
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
         GameObject droppedItem = eventData.pointerDrag;
@@ -41,24 +40,5 @@ public class DragDropSocket : MonoBehaviour, IDropHandler, IPointerEnterHandler,
         Debug.Log("Not Inventory");
         return false;
         
-    }
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        UIToolTip tooltip = Singleton.Instance.TooltipPrefab.GetComponent<UIToolTip>();
-        GameObject droppedItem = eventData.pointerEnter;
-        UIContainer itemContainer = droppedItem.GetComponentInChildren<UIContainer>();
-        mouseover = true;
-        if(itemContainer){
-            Singleton.Instance.TooltipPrefab.SetActive(true);
-            tooltip.SetTitle(itemContainer.item.data.name);
-            tooltip.AddNewEntry("Entity Type: ",itemContainer.item.data.entityType);
-
-            //TODO: Extend to included data for... everything
-        }
-        
-    }
-    public void OnPointerExit(PointerEventData eventdata){
-        mouseover = false;
-        Singleton.Instance.TooltipPrefab.SetActive(false);
     }
 }
