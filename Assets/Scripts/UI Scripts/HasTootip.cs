@@ -14,7 +14,6 @@ public class HasTootip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     private UIToolTip tooltip;
     private GameObject lastHovered;
     private GameObject tooltipPrefab;
-    private bool _rendering = false;
     private Keyboard keyboard = Keyboard.current;
     private void Awake() {
         tooltipPrefab = Singleton.Instance.TooltipPrefab;
@@ -26,11 +25,11 @@ public class HasTootip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     private void Update() {
         if(_hovered && showTooltipAction.IsPressed()){
-            tooltip.showTooltip(true);
+            tooltip.showTooltip(_currentData, true);
         }
         if(!showTooltipAction.IsPressed()){
-            tooltip.showTooltip(false);
-            StopCoroutine(tooltip.UpdateTooltip(lastHovered));
+            tooltip.showTooltip(_currentData, false);
+            StopCoroutine(tooltip.UpdateTooltip(_currentData));
         }
     }
 
@@ -50,23 +49,7 @@ public class HasTootip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     
     public void OnPointerExit(PointerEventData eventdata){
         _hovered = false;
-        tooltip.showTooltip(false);
+        tooltip.showTooltip(_currentData,false);
         
     }
-
-    
-    // public void showTooltip(bool active){
-    //     if(active){
-    //         if(!tooltipPrefab.activeSelf){
-    //             StartCoroutine(UpdateTooltip(lastHovered)); 
-    //             tooltipPrefab.SetActive(true);
-    //         }
-    //     }
-    //     else{
-    //         if(tooltipPrefab.activeSelf){
-    //             tooltipPrefab.SetActive(false);
-    //         }
-    //     }
-        
-    // }
 }

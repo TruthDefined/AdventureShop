@@ -14,7 +14,7 @@ public class UIToolTip : MonoBehaviour
     public GameObject tooltipPanel;
     public int heightAdjustment = 25;
     //Refactor below
-    private GameObject lastHovered;
+    private DataEntity tooltipEntity;
     //
 
     private void Awake() {
@@ -61,10 +61,11 @@ public class UIToolTip : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform) canvas.transform, Input.mousePosition, canvas.worldCamera, out position);
         tooltipPanel.transform.position = canvas.transform.TransformPoint(position);
     }
-    public void showTooltip(bool active){
+    public void showTooltip(DataEntity item, bool active){
+        tooltipEntity = item;
         if(active){
             if(!tooltipPanel.activeSelf){
-                StartCoroutine(UpdateTooltip(lastHovered)); 
+                StartCoroutine(UpdateTooltip(tooltipEntity)); 
                 tooltipPanel.SetActive(true);
             }
         }
@@ -76,13 +77,12 @@ public class UIToolTip : MonoBehaviour
         
     }
 
-    public IEnumerator UpdateTooltip(GameObject currentObject){
-        // _currentData = currentObject.GetComponentInChildren<UIContainer>().item.data;
-        // if(_currentData){
-        //     Singleton.Instance.TooltipPrefab.SetActive(true);
-        //     tooltip.SetTitle(_currentData.name);
-        //     tooltip.AddNewEntry("Entity Type: ",_currentData.entityType);
-        // }
+    public IEnumerator UpdateTooltip(DataEntity currentObject){
+        if(currentObject){
+            Singleton.Instance.TooltipPrefab.SetActive(true);
+            SetTitle(currentObject.name);
+            AddNewEntry("Entity Type: ", currentObject.entityType);
+        }
         
         yield break;
         //TODO: Extend to included data for... everything
