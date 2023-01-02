@@ -15,6 +15,7 @@ public class UIToolTip : MonoBehaviour
     public int heightAdjustment = 25;
     //Refactor below
     private DataEntity tooltipEntity;
+
     //
 
     private void Awake() {
@@ -37,9 +38,10 @@ public class UIToolTip : MonoBehaviour
 
 
     public void AddNewEntry(string title, string value){
+        //TODO: Could make this more efficient by enable.disable and setting values instead of instantiating and deleting entries.
         //Create a new entry, and set it as my child
         GameObject obj = Instantiate(EntryTemplate);
-        obj.transform.SetParent(transform.GetComponentInChildren<Transform>(),false);
+        obj.transform.SetParent(tooltipPanel.transform,false);
 
         //Set new text values and add them to the list of children
         TMP_Text[] texts = obj.GetComponentsInChildren<TMP_Text>();
@@ -48,7 +50,7 @@ public class UIToolTip : MonoBehaviour
         Entries.Add(obj);
         
         //Resize window to account for new entry
-        RectTransform t = GetComponent<RectTransform>();
+        RectTransform t = tooltipPanel.GetComponent<RectTransform>();
         t.sizeDelta = new Vector2(t.rect.width, 25 + (heightAdjustment * Entries.Count));
     }
     public List<GameObject> GetEntries(){
@@ -72,17 +74,43 @@ public class UIToolTip : MonoBehaviour
         else{
             if(tooltipPanel.activeSelf){
                 tooltipPanel.SetActive(false);
+                ClearEntries();
             }
         }
         
     }
 
     public IEnumerator UpdateTooltip(DataEntity currentObject){
-        if(currentObject){
-            Singleton.Instance.TooltipPrefab.SetActive(true);
-            SetTitle(currentObject.name);
-            AddNewEntry("Entity Type: ", currentObject.entityType);
+        
+        Singleton.Instance.TooltipPrefab.SetActive(true);
+        SetTitle(currentObject.name);
+        string type = currentObject.entityType;
+        AddNewEntry("Entity Type: ", type);
+    
+        switch(type){
+            case"AdventurerParty":
+                AdventurerParty aP = currentObject as AdventurerParty;
+                foreach (Adventurer a in aP.adventurers){
+                    AddNewEntry( a.name, a.species.name + " " + a.adventurerClass.name);
+                }
+                break;
+            case "Raw Material":
+                Debug.Log("Recognized Raw Material");
+                //foreach(RawMaterial mat in Singleton.Instance.Player_Raw_Inventory)
+                break;
+            case "Adventurer":
+                Adventurer adv = currentObject as Adventurer;
+                AddNewEntry("Species: ", adv.species.name);
+                AddNewEntry("Class: ", adv.adventurerClass.name);
+
+                break;
+            default:
+            break;
         }
+
+
+
+
         
         yield break;
         //TODO: Extend to included data for... everything

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 25570bb13196b2746bd22c54493414aa, type: 3}
-  m_Name: Bob The Fighter
+  m_Name: Bob
   m_EditorClassIdentifier: 
   entityType: Adventurer
   icon: {fileID: -653673135, guid: def4a4a2887172847899ff68426afcf3, type: 3}
