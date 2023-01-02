@@ -11,19 +11,17 @@ public class UIToolTip : MonoBehaviour
     private GameObject EntryTemplate;
     private List<GameObject> Entries = new List<GameObject>(); 
     private Canvas canvas;
+    public GameObject tooltipPanel;
     public int heightAdjustment = 25;
+    //Refactor below
+    private GameObject lastHovered;
+    //
 
     private void Awake() {
-        canvas = transform.root.GetComponent<Canvas>();
+        canvas = GetComponent<Canvas>();
     }
     private void OnEnable() {
         ClearEntries();
-
-        // SetTitle("Bron Johnson");
-
-        // AddNewEntry("Species:", "Human");
-        // AddNewEntry("Class:", "Fighter");
-
     }
 
     public void ClearEntries(){
@@ -41,7 +39,7 @@ public class UIToolTip : MonoBehaviour
     public void AddNewEntry(string title, string value){
         //Create a new entry, and set it as my child
         GameObject obj = Instantiate(EntryTemplate);
-        obj.transform.SetParent(transform,false);
+        obj.transform.SetParent(transform.GetComponentInChildren<Transform>(),false);
 
         //Set new text values and add them to the list of children
         TMP_Text[] texts = obj.GetComponentsInChildren<TMP_Text>();
@@ -57,10 +55,36 @@ public class UIToolTip : MonoBehaviour
         return Entries;
     }
 
-    void Update()
+    private void Update()
     {
         Vector2 position;
         RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform) canvas.transform, Input.mousePosition, canvas.worldCamera, out position);
-        transform.position = canvas.transform.TransformPoint(position);
+        tooltipPanel.transform.position = canvas.transform.TransformPoint(position);
+    }
+    public void showTooltip(bool active){
+        if(active){
+            if(!tooltipPanel.activeSelf){
+                StartCoroutine(UpdateTooltip(lastHovered)); 
+                tooltipPanel.SetActive(true);
+            }
+        }
+        else{
+            if(tooltipPanel.activeSelf){
+                tooltipPanel.SetActive(false);
+            }
+        }
+        
+    }
+
+    public IEnumerator UpdateTooltip(GameObject currentObject){
+        // _currentData = currentObject.GetComponentInChildren<UIContainer>().item.data;
+        // if(_currentData){
+        //     Singleton.Instance.TooltipPrefab.SetActive(true);
+        //     tooltip.SetTitle(_currentData.name);
+        //     tooltip.AddNewEntry("Entity Type: ",_currentData.entityType);
+        // }
+        
+        yield break;
+        //TODO: Extend to included data for... everything
     }
 }

@@ -9,7 +9,6 @@ public class MouseFollower : MonoBehaviour
     [SerializeField]
     private UIInventoryItemContainer _mouseItem;
 
-    // Start is called before the first frame update
     private void Awake() {
         canvas = transform.root.GetComponent<Canvas>();
         _mouseItem = GetComponentInChildren<UIInventoryItemContainer>(); 
