@@ -33,23 +33,23 @@ public class EntityManager : MonoBehaviour
 #region AddToLists
     public void AddAdventurer(Adventurer add){
         _adventurers.Add(add);
-        onAdventurerAdd();
+        //onAdventurerAdd();
     }
     public void AddParty(AdventurerParty add){
         _adventurerParties.Add(add);
-        onPartyAdd();
+        //onPartyAdd();
     }
     public void AddCreature(Creature add){
         _creatures.Add(add);
-        onCreatureAdd();
+        //onCreatureAdd();
     }
     public void AddEquipment(Equipment add){
         _equipment.Add(add);
-        onEquipmentAdd();
+        //onEquipmentAdd();
     }
     public void AddQuest(Quest add){
         _quests.Add(add);
-        onQuestAdd();
+        //onQuestAdd();
     }
 
 #endregion

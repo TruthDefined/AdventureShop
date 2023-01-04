@@ -18,7 +18,9 @@ public class LoadTestParty : MonoBehaviour
     }
     private void Start() {
         GameObject slot = PartyContainer.CreateInventorySlot();
-        SlotItem item = new SlotItem( Party);
+        Party = Generate.RandomParty(true);
+        //SlotItem item = new SlotItem( Party);
+        SlotItem item = new SlotItem(Party);
         PartyContainer.AddItemToSlot(slot, item);
 
         foreach(Adventurer adventurer in Party.adventurers){

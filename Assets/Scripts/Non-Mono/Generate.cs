@@ -1,11 +1,11 @@
 using UnityEngine;
 using System.Collections.Generic;
-public class Generate
+public static class Generate
 {
-    EntityManager manager = Singleton.Instance.EntityManager;
-    public DataEntity RandomGeneric(){
-        DataEntity gen = new DataEntity();
-        gen.Init("Entity #" + Random.value);
+    static EntityManager manager = Singleton.Instance.EntityManager;
+    static public DataEntity RandomGeneric(){
+        DataEntity gen = ScriptableObject.CreateInstance<DataEntity>();
+        gen.Init("Entity #" + Random.Range(0,1000));
         return gen;
     }
 /// <summary>
@@ -15,11 +15,11 @@ public class Generate
 /// </summary>
 /// <param name="createNew">""</param>
 /// <returns>"Species"</returns>
-    public Species RandomSpecies(bool createNew = false){
+    static public Species RandomSpecies(bool createNew = false){
         if(createNew){
-            Species gen = new Species();
+            Species gen = ScriptableObject.CreateInstance<Species>();
             //TODO: Create rules for new species creation
-            gen.Init("Species #" + Random.value);
+            gen.Init("Species #" + Random.Range(0,1000));
             return gen;
         }
         else{
@@ -33,10 +33,10 @@ public class Generate
     /// </summary>
     /// <param name="createNew">""</param>
     /// <returns>"Ability"</returns>
-    public Ability RandomAbility(bool createNew = false){
+    static public Ability RandomAbility(bool createNew = false){
         if(createNew){
-            Ability gen = new Ability();
-            gen.Init("Ability #" + Random.value);
+            Ability gen = ScriptableObject.CreateInstance<Ability>();
+            gen.Init("Ability #" + Random.Range(0,1000));
             return gen;
         }
         else{
@@ -50,10 +50,10 @@ public class Generate
     /// </summary>
     /// <param name="createNew">""</param>
     /// <returns>"Location"</returns>
-    public Location RandomLocation(bool createNew = false){
+    static public Location RandomLocation(bool createNew = false){
         if(createNew){
-            Location gen = new Location();
-            gen.Init("Location #" + Random.value);
+            Location gen = ScriptableObject.CreateInstance<Location>();
+            gen.Init("Location #" + Random.Range(0,1000));
             return gen;
         }
         else{
@@ -67,10 +67,10 @@ public class Generate
     /// </summary>
     /// <param name="createNew">""</param>
     /// <returns>"Adventurer Class"</returns>
-    public AdventurerClass RandomClass(bool createNew = false){
-        AdventurerClass gen = new AdventurerClass();
+    static public AdventurerClass RandomClass(bool createNew = false){
+        AdventurerClass gen = ScriptableObject.CreateInstance<AdventurerClass>();
         if(createNew){
-            gen.Init("Class #" + Random.value);
+            gen.Init("Class #" + Random.Range(0,1000));
             return gen;
         }
         else{
@@ -86,9 +86,9 @@ public class Generate
     /// <param name="optional"></param>
     /// <param name="acceptableMaterials"></param>
     /// <returns></returns>
-    public PartType RandomPartType(bool createNew = false, bool optional = true, List<MaterialType> acceptableMaterials = null){
+    static public PartType RandomPartType(bool createNew = false, bool optional = true, List<MaterialType> acceptableMaterials = null){
         if(createNew){
-            PartType gen = new PartType();
+            PartType gen = ScriptableObject.CreateInstance<PartType>();
             bool initOptional = (optional == true)? true : false;
             List<MaterialType> initTypes;
             if(acceptableMaterials == null){
@@ -96,13 +96,13 @@ public class Generate
                 initTypes = new List<MaterialType>();
                 for (int i = 0; i < numMaterials; i++)
                 {
-                    initTypes.Add(RandomMaterialType());
+                    initTypes.Add(RandomMaterialType(createNew));
                 }
 
             } else{
                 initTypes = acceptableMaterials;
             }
-            gen.Init("PartType #" + Random.value,initOptional,initTypes);
+            gen.Init("PartType #" + Random.Range(0,1000),initOptional,initTypes);
             return gen;
         }
         else{
@@ -116,10 +116,10 @@ public class Generate
     /// </summary>
     /// <param name="createNew">""</param>
     /// <returns>"Material Type"</returns>
-    public MaterialType RandomMaterialType(bool createNew = false){
+    static public MaterialType RandomMaterialType(bool createNew = false){
         if(createNew){
-            MaterialType gen = new MaterialType();
-            gen.Init("MaterialType #" + Random.value);
+            MaterialType gen = ScriptableObject.CreateInstance<MaterialType>();
+            gen.Init("MaterialType #" + Random.Range(0,1000));
             return gen;
         }
         else{
@@ -130,7 +130,7 @@ public class Generate
     // public HistoricalEntity RandomHistoric(Location historicLocation = null){
     //     HistoricalEntity gen = new HistoricalEntity();
     //     Location initLocation = (historicLocation == null) ? RandomLocation(): historicLocation;
-    //     gen.Init("Historic #" + Random.value,initLocation);
+    //     gen.Init("Historic #" + Random.Range(0,1000),initLocation);
     //     return gen;
     // }
     /// <summary>
@@ -142,13 +142,13 @@ public class Generate
     /// <param name="historicLocation"></param>
     /// <param name="creatureSpecies"></param>
     /// <returns>Creature</returns>
-    public Creature RandomCreature(bool createNew = false, Location historicLocation = null, Species creatureSpecies = null){
+    static public Creature RandomCreature(bool createNew = false, Location historicLocation = null, Species creatureSpecies = null){
         //TODO: Define rules for new creature creation
         if(createNew){
-            Creature gen = new Creature();
-            Location initLocation = (historicLocation == null) ? RandomLocation() : historicLocation;
-            Species initSpecies = (creatureSpecies == null) ? RandomSpecies() : creatureSpecies;
-            gen.Init("Creature #" + Random.value, initLocation, initSpecies);
+            Creature gen = ScriptableObject.CreateInstance<Creature>();
+            Location initLocation = (historicLocation == null) ? RandomLocation(createNew) : historicLocation;
+            Species initSpecies = (creatureSpecies == null) ? RandomSpecies(createNew) : creatureSpecies;
+            gen.Init("Creature #" + Random.Range(0,1000), initLocation, initSpecies);
             manager.AddCreature(gen);
             return gen;
         }
@@ -170,16 +170,16 @@ public class Generate
     /// <param name="price"></param>
     /// <param name="notes"></param>
     /// <returns>Material</returns>
-    public RawMaterial RandomMaterial(bool createNew = false, Location origin = null, Creature harvester = null, Creature originalOwner = null, MaterialType type = null, int price = 0, string notes = ""){
+    static public RawMaterial RandomMaterial(bool createNew = false, Location origin = null, Creature harvester = null, Creature originalOwner = null, MaterialType type = null, int price = 0, string notes = ""){
         if(createNew){
-            RawMaterial gen = new RawMaterial();
-            Location initOrigin = (origin == null) ? RandomLocation() : origin;
-            Creature initHarvester = (harvester == null) ? RandomCreature() : harvester;
-            Creature initOwner = (originalOwner == null) ? RandomCreature() : originalOwner;
-            MaterialType initType = (type == null) ? RandomMaterialType() : type;
+            RawMaterial gen = ScriptableObject.CreateInstance<RawMaterial>();
+            Location initOrigin = (origin == null) ? RandomLocation(createNew) : origin;
+            Creature initHarvester = (harvester == null) ? RandomCreature(createNew) : harvester;
+            Creature initOwner = (originalOwner == null) ? RandomCreature(createNew) : originalOwner;
+            MaterialType initType = (type == null) ? RandomMaterialType(createNew) : type;
             int initPrice = (price == 0) ? -1 : price;
             string initNotes = (notes == "") ? "NoNotes" : notes;
-            gen.Init("Material #" + Random.value,initOrigin,initHarvester,initOwner,initType,initPrice,initNotes);
+            gen.Init("Material #" + Random.Range(0,1000),initOrigin,initHarvester,initOwner,initType,initPrice,initNotes);
             return gen;
         }
         else{
@@ -187,19 +187,19 @@ public class Generate
         }  
     }
 
-    public Blueprint RandomBlueprint(bool createNew = false, List<PartType> partsRequired = null){
+    static public Blueprint RandomBlueprint(bool createNew = false, List<PartType> partsRequired = null){
         if(createNew){
-            Blueprint gen = new Blueprint();
+            Blueprint gen = ScriptableObject.CreateInstance<Blueprint>();
             List<PartType> initParts = new List<PartType>();
             if(initParts != partsRequired) initParts = partsRequired;
             else{
                 int partCount = Random.Range(0,5);
                 for (int i = 0; i < partCount; i++)
                 {
-                    initParts.Add(RandomPartType());
+                    initParts.Add(RandomPartType(createNew));
                 }
             }
-            gen.Init("Blueprint #" + Random.value,initParts);
+            gen.Init("Blueprint #" + Random.Range(0,1000),initParts);
             return gen;
         }
         else{
@@ -208,13 +208,13 @@ public class Generate
         
     }
 
-    public Equipment RandomEquipment(bool createNew = false, Location origin = null, Creature crafter = null, Creature owner = null, Blueprint blueprint = null, List<PartType> parts = null, List<RawMaterial> mats = null, int price = 0, int durability = 0, string notes = ""){
+    static public Equipment RandomEquipment(bool createNew = false, Location origin = null, Creature crafter = null, Creature owner = null, Blueprint blueprint = null, List<PartType> parts = null, List<RawMaterial> mats = null, int price = 0, int durability = 0, string notes = ""){
         if(createNew){
-            Equipment gen = new Equipment();
-            Location initOrigin = (origin == null) ? RandomLocation() : origin;
-            Creature initCrafter = (crafter == null) ? RandomCreature() : crafter;
-            Creature initOwner = (owner == null) ? RandomCreature() : owner;
-            Blueprint initBlueprint = (blueprint == null) ? RandomBlueprint() : blueprint;
+            Equipment gen = ScriptableObject.CreateInstance<Equipment>();
+            Location initOrigin = (origin == null) ? RandomLocation(createNew) : origin;
+            Creature initCrafter = (crafter == null) ? RandomCreature(createNew) : crafter;
+            Creature initOwner = (owner == null) ? RandomCreature(createNew) : owner;
+            Blueprint initBlueprint = (blueprint == null) ? RandomBlueprint(createNew) : blueprint;
             int initprice = (price == 0) ? 0 : price;
             int initDur = (durability == 0) ? 0 : durability;
             string initNotes = (notes == "") ? "" : notes;
@@ -225,7 +225,7 @@ public class Generate
                 int partCount = Random.Range(0,5);
                 for (int i = 0; i < partCount; i++)
                 {
-                    initParts.Add(RandomPartType());
+                    initParts.Add(RandomPartType(createNew));
                 }
             }
             List<RawMaterial> initMats = new List<RawMaterial>();
@@ -234,10 +234,10 @@ public class Generate
                 int partCount = Random.Range(0,5);
                 for (int i = 0; i < partCount; i++)
                 {
-                    initMats.Add(RandomMaterial());
+                    initMats.Add(RandomMaterial(createNew));
                 }
             }
-            gen.Init("Equipment #" + Random.value, initOrigin, initCrafter, initOwner, initBlueprint, initParts, initMats,initprice, initDur, initNotes);
+            gen.Init("Equipment #" + Random.Range(0,1000), initOrigin, initCrafter, initOwner, initBlueprint, initParts, initMats,initprice, initDur, initNotes);
             manager.AddEquipment(gen);
             return gen;
         }
@@ -246,12 +246,12 @@ public class Generate
         }
     }
 
-    public Adventurer RandomAdventurer(bool createNew = false, Location origin = null, Species species = null, List<Equipment> startingGear = null, AdventurerClass adventuringClass = null){
+    static public Adventurer RandomAdventurer(bool createNew = false, Location origin = null, Species species = null, List<Equipment> startingGear = null, AdventurerClass adventuringClass = null){
         if(createNew){
-            Adventurer gen = new Adventurer();
-            Location initOrigin = (origin == null) ? RandomLocation() : origin;
-            Species initSpecies = (species == null) ? RandomSpecies() : species;
-            AdventurerClass initClass = (adventuringClass == null)? RandomClass() : adventuringClass;
+            Adventurer gen = ScriptableObject.CreateInstance<Adventurer>();
+            Location initOrigin = (origin == null) ? RandomLocation(createNew) : origin;
+            Species initSpecies = (species == null) ? RandomSpecies(createNew) : species;
+            AdventurerClass initClass = (adventuringClass == null)? RandomClass(createNew) : adventuringClass;
             List<Equipment> initGear = new List<Equipment>();
             if(initGear == startingGear){
                 //create new gear
@@ -259,13 +259,13 @@ public class Generate
                 initGear = new List<Equipment>();
                 for (int i = 0; i < numGear; i++)
                 {
-                    initGear[i] = RandomEquipment();
+                    initGear[i] = RandomEquipment(createNew);
                 }
             }
             else{
                 initGear = startingGear;
             }
-            gen.Init("Adventurer #" + Random.value,initOrigin,initSpecies,initGear,initClass);
+            gen.Init("Adventurer #" + Random.Range(0,1000),initOrigin,initSpecies,initGear,initClass);
             manager.AddAdventurer(gen);
             return gen;
         }
@@ -274,18 +274,18 @@ public class Generate
         }
     }
 
-    public AdventurerParty RandomParty(bool createNew = false, Location location = null, List<Adventurer> adventurers = null, Sprite crest = null){
+    static public AdventurerParty RandomParty(bool createNew = false, Location location = null, List<Adventurer> adventurers = null, Sprite crest = null){
         if(createNew){
-            AdventurerParty gen = new AdventurerParty();
-            Location initLocation = (location == null)? RandomLocation():location;
+            AdventurerParty gen = ScriptableObject.CreateInstance<AdventurerParty>();
+            Location initLocation = (location == null)? RandomLocation(createNew):location;
             Sprite initSprite = (crest == null)? null: crest;
             List<Adventurer> initAdventurers = new List<Adventurer>();
             int numAdventurers = Random.Range(1,4);
             for (int i = 0; i < numAdventurers; i++)
             {
-                initAdventurers.Add(RandomAdventurer(false));
+                initAdventurers.Add(RandomAdventurer(createNew));
             }
-            gen.Init("Party #" + Random.value,initLocation,initAdventurers,initSprite);
+            gen.Init("Party #" + Random.Range(0,1000),initLocation,initAdventurers,initSprite);
             manager.AddParty(gen);
             return gen;
         }
@@ -297,7 +297,7 @@ public class Generate
     //Quest +
 
 
-    private T GetRandom<T>(List<T> param){
+    static private T GetRandom<T>(List<T> param){
         int randomIndex = Random.Range(0,param.Count);
         return param[randomIndex];
     }
