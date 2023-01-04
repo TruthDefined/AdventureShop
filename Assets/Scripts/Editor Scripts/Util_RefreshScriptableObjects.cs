@@ -12,28 +12,47 @@ public class Util_RefreshScriptableObjects
    #if UNITY_EDITOR
    [MenuItem("Scriptable Objects/ Print Lists")]
    public static void PrintLists(){
-        CraftingManager manager = GameObject.FindObjectOfType<CraftingManager>();
+        EntityManager manager = GameObject.FindObjectOfType<EntityManager>();
         manager.Print();
    }
    
    [MenuItem("Scriptable Objects/ Refresh in Game Manager")]
    public static void UpdateObjects() {
-        CraftingManager manager = GameObject.FindObjectOfType<CraftingManager>();
+        EntityManager manager = GameObject.FindObjectOfType<EntityManager>();
         UpdateList<Blueprint>(manager);
         UpdateList<MaterialType>(manager);
         UpdateList<PartType>(manager);
         UpdateList<RawMaterial>(manager);
+
+        UpdateList<Ability>(manager);
+        UpdateList<AdventurerClass>(manager);
+        UpdateList<Species>(manager);
+        UpdateList<Location>(manager);
+        UpdateList<Adventurer>(manager);
+        UpdateList<AdventurerParty>(manager);
+        UpdateList<Creature>(manager);
+        UpdateList<Equipment>(manager);
+        UpdateList<Quest>(manager);
         Debug.Log("Update Complete");  
    }
     [MenuItem("Scriptable Objects/ Update Textures")]
     public static void UpdateTextures(){
-        CraftingManager manager = GameObject.FindObjectOfType<CraftingManager>();
+        EntityManager manager = GameObject.FindObjectOfType<EntityManager>();
         string[] textureFolder = new string[]{$"Assets/Textures/ScriptableObjects"};
 
         UpdateTexture<Blueprint>(manager.blueprints, textureFolder[0] + "/blueprints");
         UpdateTexture<RawMaterial>(manager.rawMaterials, textureFolder[0] + "/rawMaterials");
         UpdateTexture<PartType>(manager.partTypes, textureFolder[0] + "/partTypes");
         UpdateTexture<MaterialType>(manager.materialTypes, textureFolder[0] + "/materialTypes");
+        UpdateTexture<Ability>(manager.abilitys, textureFolder[0] + "/abilities");
+        UpdateTexture<AdventurerClass>(manager.adventurerClasses, textureFolder[0] + "/adventurerClasses");
+        UpdateTexture<Species>(manager.species, textureFolder[0] + "/species");
+        UpdateTexture<Location>(manager.locations, textureFolder[0] + "/locations");
+        UpdateTexture<Adventurer>(manager.adventurers, textureFolder[0] + "/adventurers");
+        UpdateTexture<AdventurerParty>(manager.adventurerParties, textureFolder[0] + "/parties");
+        UpdateTexture<Creature>(manager.creatures, textureFolder[0] + "/creatures");
+        UpdateTexture<Equipment>(manager.equipment, textureFolder[0] + "/equipment");
+        UpdateTexture<Quest>(manager.quests, textureFolder[0] + "/quests");
 
         // foreach (Blueprint data in manager.blueprints){
         //     string[] guid = AssetDatabase.FindAssets(data.name + assetType, textureFolder);
@@ -78,7 +97,7 @@ public class Util_RefreshScriptableObjects
 
 
 
-    private static void UpdateList<T>(CraftingManager m) where T : DataEntity{
+    private static void UpdateList<T>(EntityManager m) where T : DataEntity{
         List<T> list = new List<T>();
         var searchFolder = new string[]{$"Assets/ScriptableObjects"};
         string[] guid = AssetDatabase.FindAssets("", searchFolder);
@@ -91,7 +110,7 @@ public class Util_RefreshScriptableObjects
                 //Debug.Log(asset.name);
             }
         }
-        m.UpdateLists<T>(list as List<T>);
+        m.CreateLists<T>(list as List<T>);
     }
    }
 

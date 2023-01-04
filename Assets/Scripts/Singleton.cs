@@ -10,6 +10,7 @@ public class Singleton : MonoBehaviour
     public InventoryManager Player_Equipment_Inventory {get; private set;}
     public UICraftingController UICraftingController { get; private set; }
     public CraftingManager CraftingManager {get; private set;}
+    public EntityManager EntityManager {get; private set;}
     public TimeManager TimeManager {get; private set;}
     public GameObject TooltipPrefab;
     public bool debug = true;
@@ -36,6 +37,12 @@ public class Singleton : MonoBehaviour
         else{
             CraftingManager = gameObject.AddComponent<CraftingManager>();
         }
+        if(GetComponent<EntityManager>()){
+            EntityManager = GetComponent<EntityManager>();
+        }
+        else{
+            EntityManager = gameObject.AddComponent<EntityManager>();
+        }
         //Create player inventories
         Player_Raw_Inventory = new InventoryManager(InventoryType.RawMaterials);
         Player_Equipment_Inventory = new InventoryManager(InventoryType.Equipment);
@@ -43,7 +50,7 @@ public class Singleton : MonoBehaviour
     private void Start() {
         //Add all raw materials currently registered to the players inventory
         if(debug){
-            foreach(RawMaterial mat in CraftingManager.rawMaterials){
+            foreach(RawMaterial mat in EntityManager.rawMaterials){
                 Player_Raw_Inventory.Add(mat);
             }
             //Debug.Log(TimeManager.GetCurrentDate());

@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
+using System.Collections.Generic;
 using TMPro;
 
 public class BlueprintSelect : MonoBehaviour, IDropHandler
@@ -10,7 +11,7 @@ public class BlueprintSelect : MonoBehaviour, IDropHandler
     public TMP_Dropdown Dropdown;
     public Image icon;
 
-    public MaterialType[] type;
+    public List<MaterialType> type;
 
     public void OnDrop(PointerEventData eventData)
     {

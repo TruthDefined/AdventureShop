@@ -5,7 +5,7 @@ using System.Linq;
 
 public class UICraftingController : MonoBehaviour
 {
-    private CraftingManager _craftingManager;
+    private EntityManager _entityManager;
     private List<GameObject> _partDropdowns = new List<GameObject>();
     private TMP_Dropdown _blueprintDropdown;
     
@@ -21,14 +21,14 @@ public class UICraftingController : MonoBehaviour
         TMP_Text title = blueprintDropdown.GetComponent<BlueprintSelect>().Title;
         title.text = "Blueprint";
 
-        _craftingManager = Singleton.Instance.CraftingManager;
+        _entityManager = Singleton.Instance.EntityManager;
         _blueprintDropdown.ClearOptions();
 
         //Add Empty option to blueprint dropdown
         _blueprintDropdown.options.Add(new TMP_Dropdown.OptionData());
         
         //Populate dropdown with all possible blueprints
-        foreach (Blueprint bprint in _craftingManager.blueprints){
+        foreach (Blueprint bprint in _entityManager.blueprints){
             _blueprintDropdown.options.Add(new TMP_Dropdown.OptionData(bprint.name,bprint.icon));
         }
 
@@ -60,7 +60,7 @@ public class UICraftingController : MonoBehaviour
     /// Populate blueprint creation dropdowns.
     /// </summary>
    public void OnBlueprintChoice(){ 
-        activeBlueprint = _craftingManager.blueprints.Where(obj => obj.name == _blueprintDropdown.options[_blueprintDropdown.value].text).SingleOrDefault();     
+        activeBlueprint = _entityManager.blueprints.Where(obj => obj.name == _blueprintDropdown.options[_blueprintDropdown.value].text).SingleOrDefault();     
         float yOffset = -60f;
         
         foreach (GameObject drop in _partDropdowns){
@@ -91,7 +91,7 @@ public class UICraftingController : MonoBehaviour
                 tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData());
                 tempDropdown.GetComponent<BlueprintSelect>().type = activeBlueprint.partsRequired[i].acceptableMaterials;
                 //Populate the dropdown with acceptable items
-                foreach(RawMaterial raw in _craftingManager.rawMaterials){
+                foreach(RawMaterial raw in _entityManager.rawMaterials){
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(raw.type)){
                         if(Singleton.Instance.Player_Raw_Inventory.Get(raw).stackSize > 0){
                             tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData(raw.name,raw.icon));

@@ -6,14 +6,11 @@ using System.Linq;
 
 public class CraftingManager : MonoBehaviour
 {
-    [SerializeField] private List<Blueprint> _blueprints;
-    [SerializeField] private List<MaterialType> _materialTypes;
-    [SerializeField] private List<RawMaterial> _rawMaterials;
-    [SerializeField] private List<PartType> _partTypes;
-
     private UICraftingController UI;
+    private EntityManager eManager;
     private void Start() {
         UI = Singleton.Instance.UICraftingController;
+        eManager = Singleton.Instance.EntityManager;
     }
 
     /// <summary>
@@ -22,7 +19,7 @@ public class CraftingManager : MonoBehaviour
     public void Craft(){
         Debug.Log("Craft");
         if(UI.activeBlueprint){
-            Blueprint craftingBlueprint = blueprints.Find((x) => x.name == UI.GetDropdownOption(UI.blueprintDropdown).text);
+            Blueprint craftingBlueprint = eManager.blueprints.Find((x) => x.name == UI.GetDropdownOption(UI.blueprintDropdown).text);
             List<PartType> partsList = new List<PartType>();
             List<RawMaterial> matList = new List<RawMaterial>();
             List<RawMaterial> materialsUsed = new List<RawMaterial>();
@@ -31,7 +28,7 @@ public class CraftingManager : MonoBehaviour
                 
                 if(UI.GetDropdownValue(UI.partDropDowns[i]) != 0){
                     partsList.Add(craftingBlueprint.partsRequired[i]);
-                    matList.Add(rawMaterials.Find((x) => x.name == UI.GetDropdownOption(UI.partDropDowns[i]).text));
+                    matList.Add(eManager.rawMaterials.Find((x) => x.name == UI.GetDropdownOption(UI.partDropDowns[i]).text));
                 }
                 else{
                     if(craftingBlueprint.partsRequired[i].optional == false){
@@ -68,97 +65,11 @@ public class CraftingManager : MonoBehaviour
                 }
             }
             //TODO: Player should be designed as a CREATURE for ease of crafting Init (Or equipment needs special Init just for player-crafted status)
-            newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, new Location(), new Creature(), new Creature(), craftingBlueprint, partsList.ToArray(), matList.ToArray());
+            newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, new Location(), new Creature(), new Creature(), craftingBlueprint, partsList, matList, 0, 0, "");
             newEquipment.name = importantMatNames + " " + craftingBlueprint.name;
+            Singleton.Instance.EntityManager.AddEquipment(newEquipment);
             Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment);
 
         }
     }
-
-#region GetLists
-    public List<Blueprint> blueprints
-    {
-        get{
-            return _blueprints;
-        }
-        set{
-            print("Value cannot be set at Runtime");
-        }
-    }
-    public List<MaterialType> materialTypes
-    {
-        get{
-            return _materialTypes;
-        }
-        set{
-            print("Value cannot be set at Runtime");
-        }
-    }
-    public List<RawMaterial> rawMaterials
-    {
-        get{
-            return _rawMaterials;
-        }
-        set{
-            print("Value cannot be set at Runtime");
-        }
-    }
-    public List<PartType> partTypes
-    {
-        get{
-            return _partTypes;
-        }
-        set{
-            print("Value cannot be set at Runtime");
-        }
-    }
-#endregion    
-    // Start is called before the first frame update
-#region EDITOR
-    #if UNITY_EDITOR
-    public void UpdateBlueprints(List<Blueprint> newList){
-        _blueprints = newList;
-    }
-
-    public void UpdateLists<T>(List<T> newList){
-        switch (newList.GetType())
-        {
-            case System.Type blue when blue == typeof(List<Blueprint>):
-                _blueprints = newList as List<Blueprint>;
-            break;
-            case System.Type mat when mat == typeof(List<MaterialType>):
-                _materialTypes = newList as List<MaterialType>;
-            break;
-            case System.Type pt when pt == typeof(List<PartType>):
-                _partTypes = newList as List<PartType>;
-            break;
-            case System.Type raw when raw == typeof(List<RawMaterial>):
-                _rawMaterials = newList as List<RawMaterial>;
-            break;
-
-            default:
-            break;
-        }
-
-    }
-    public void Print(){
-        foreach (Blueprint b in blueprints)
-        {
-            Debug.Log(b.name);
-        }
-        foreach (MaterialType m in materialTypes)
-        {
-            Debug.Log(m.name);
-        }
-        foreach (PartType p in partTypes)
-        {
-            Debug.Log(p.name);
-        }
-        foreach (RawMaterial r in rawMaterials)
-        {
-            Debug.Log(r.name);
-        }
-    }
-    #endif
-#endregion
 }
