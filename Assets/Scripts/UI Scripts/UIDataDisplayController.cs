@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIDataDisplayController : MonoBehaviour
 {
-    
+    public LoadTestParty parent;
     public GameObject m_slotPrefab;
     public GameObject m_itemPrefab;
     private List<GameObject> _inventorySlots = new List<GameObject>();
@@ -19,6 +19,7 @@ public class UIDataDisplayController : MonoBehaviour
 
     private void Start() {
         _inventorySlots = new List<GameObject>();
+        parent = GetComponentInParent<LoadTestParty>();
         //CreateInventorySlot();
     }
 
@@ -52,5 +53,11 @@ public class UIDataDisplayController : MonoBehaviour
         obj.name = item.data.name ;
         UIContainer container = obj.GetComponent<UIContainer>();
         container.item = item;
+    }
+    public void displayAdventurer(Adventurer adv){
+        parent.showEquipment(adv);
+    }
+    public void displayParty(AdventurerParty party){
+        parent.showParty(party);
     }
 }

@@ -11,7 +11,11 @@ public class LoadTestParty : MonoBehaviour
     public UIDataDisplayController PartyContainer;
     public UIDataDisplayController AdventurerContainer;
     public UIDataDisplayController EquipmentContainer;
+    public List<GameObject> ActiveEquipmentSlots;
+    public List<GameObject> ActiveAdventurerSlots;
 
+    private AdventurerParty activeParty;
+    private Adventurer activeAdventurer;
 
     private void Awake() {
         //displayController = PartyContainer.GetComponent<UIDataDisplayController>();
@@ -22,29 +26,48 @@ public class LoadTestParty : MonoBehaviour
         //SlotItem item = new SlotItem( Party);
         SlotItem item = new SlotItem(Party);
         PartyContainer.AddItemToSlot(slot, item);
+    }
 
-        foreach(Adventurer adventurer in Party.adventurers){
+    public void showEquipment(Adventurer active){
+        activeAdventurer = active;
+        foreach(GameObject slot in ActiveEquipmentSlots){
+            Destroy(slot);
+        }
+        foreach(InventoryItem equipment in active.equipment.inventory){
+                GameObject invSlot = EquipmentContainer.CreateInventorySlot();
+                ActiveEquipmentSlots.Add(invSlot);
+                SlotItem inItem = new SlotItem(equipment.data);
+                EquipmentContainer.AddItemToSlot(invSlot, inItem);
+            }
+    }
+    public void showParty(AdventurerParty active){
+        activeParty = active;
+        foreach(GameObject slot in ActiveAdventurerSlots){
+            Destroy(slot);
+        }
+        foreach(Adventurer adventurer in active.adventurers){
             GameObject adSlot = AdventurerContainer.CreateInventorySlot();
+            ActiveAdventurerSlots.Add(adSlot);
             SlotItem adItem = new SlotItem( adventurer);
             PartyContainer.AddItemToSlot(adSlot, adItem);
             
-            if(adventurer.equipment == null){
-                Debug.Log("Equipment Inventory is not instatiated");
-                adventurer.equipment = new InventoryManager(InventoryType.Equipment);
-            }
-            if(adventurer.equipment.inventory.Count>0){
-                foreach(InventoryItem equipment in adventurer.equipment.inventory){
-                    GameObject invSlot = EquipmentContainer.CreateInventorySlot();
-                    SlotItem inItem = new SlotItem(equipment.data);
-                    EquipmentContainer.AddItemToSlot(invSlot, inItem);
+            //Create new inventory of Equipment if needed
+            if(adventurer.equipment.inventory.Count== 0){
+                int starterEquipmentCount = Random.Range(0,10);
+                for (int i = 0; i < starterEquipmentCount; i++)
+                {
+                    InventoryItem newItem = new InventoryItem(Generate.RandomEquipment(true));
+                    adventurer.equipment.inventory.Add(newItem);
                 }
-            }
-            else{
-                Debug.Log("Equipment Inventory is Empty");
-            }
-            
-        }
 
-        
+            }        
+        }
+    }
+
+    public void refreshParty(){
+        showParty(activeParty);
+    }
+    public void refreshAdventurer(){
+        showEquipment(activeAdventurer);
     }
 }

@@ -27,7 +27,9 @@ public class Creature : HistoricalEntity
                 this.inventory.Add(item);
             }
         }
-        if(artPrefab == null) this.artPrefab = new GameObject();
+        // if(artPrefab == null) this.artPrefab = new GameObject();
+        // this.artPrefab.name = "Creature Art Prefab";
+        //Destroy(artPrefab);
         // artPrefab.AddComponent<SpriteRenderer>();
         // artPrefab.GetComponent<SpriteRenderer>().sprite = Sprite.Create(Texture2D.blackTexture,new Rect(0,0,10,10), Vector2.zero);
     }

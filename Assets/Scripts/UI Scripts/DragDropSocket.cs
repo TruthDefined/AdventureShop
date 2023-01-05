@@ -11,7 +11,8 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
         DraggableItem droppedDraggableItem = droppedItem.GetComponent<DraggableItem>();
         DraggableItem oldDraggable;
         Transform oldParent = droppedDraggableItem.parentAfterDrag;
-
+        Debug.Log(droppedItem.name + " dropped on " + transform.parent.name);
+        //TODO: Add adventurers to parties on drop, Add Equipment to Adventurer on drop
         if(isValidSlot(droppedItem)){
             if(transform.childCount == 0){
                 droppedDraggableItem.parentAfterDrag = transform;

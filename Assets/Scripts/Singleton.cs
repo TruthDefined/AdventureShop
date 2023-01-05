@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 /// <summary>
 /// Points to all Player manager and controller scripts for easy reference.
 /// </summary>
@@ -57,4 +57,5 @@ public class Singleton : MonoBehaviour
         }
         
     }
+    
 }

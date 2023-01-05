@@ -15,6 +15,9 @@ public class DataEntity: ScriptableObject
     private void OnValidate() {
         entityType = GetType().ToString();
     }
+    private void Awake() {
+        entityType = GetType().ToString();
+    }
 
     public void Init(string name){
         this.name = name;
