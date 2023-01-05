@@ -19,7 +19,7 @@ public class Creature : HistoricalEntity
         this.inventory = new InventoryManager(InventoryType.RawMaterials);
         if(startingGear != null){
             foreach(Equipment item in startingGear){
-            this.equipment.Add(item);
+                this.equipment.Add(item);
             }
         }
         if(startingMats != null){

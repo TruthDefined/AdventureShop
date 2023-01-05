@@ -9,7 +9,7 @@ public class UIInventoryController : UIDataDisplayController
     public GameObject owner;
     private void Start() {
         InventoryManager.onInventoryChangedEvent += OnUpdateInventory;
-        OnUpdateInventory();
+        // OnUpdateInventory();
     }
 
     private void OnUpdateInventory(){

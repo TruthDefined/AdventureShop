@@ -9,6 +9,7 @@ using System.Linq;
 /// <value>List (InventoryItem) inventory</value>
 public class InventoryManager
 {
+    public Creature owner {get; private set;}
     public delegate void OnInventoryChangedEvent();
     public static OnInventoryChangedEvent onInventoryChangedEvent;
     //TODO: I probably dont need both the Dictionary and List here... i should fix that
@@ -47,7 +48,7 @@ public class InventoryManager
             m_itemDictionary.Add(referenceData, newItem);
         }
         //PrintInventory();
-        onInventoryChangedEvent();
+        //onInventoryChangedEvent();
     }
 
     /// <summary>
@@ -57,13 +58,17 @@ public class InventoryManager
     public void Remove(DataEntity referenceData){
         if(IsInInventory(referenceData, out InventoryItem value))
             {
+            Debug.Log("Removing...");
             value.RemoveFromStack();
             if(value.stackSize == -1){
                 inventory.Remove(value);
                 m_itemDictionary.Remove(referenceData);
             }
         }
-        onInventoryChangedEvent();
+        else{
+            Debug.Log("Cannot Remove. Not in inventory");
+        }
+        //nInventoryChangedEvent();
         //PrintInventory();
     }
     
@@ -73,16 +78,21 @@ public class InventoryManager
     /// <returns> InventoryItem containing passed entity as data. </returns>
     public bool IsInInventory(DataEntity entity, out InventoryItem value){
         switch (type){
+            //TODO: Not working correctly. Likley have to overhault inventory system....
             case InventoryType.Equipment:
                 Equipment equip = entity as Equipment;
-
                 foreach (Equipment item in m_itemDictionary.Keys){
-                    if (item.partsRequired.SequenceEqual(equip.partsRequired) && item.usedMaterials.SequenceEqual(equip.usedMaterials)){
-                        if(m_itemDictionary.TryGetValue(item, out InventoryItem val)){
-                            value = val;
-                            return true;
-                        }
-                    } 
+                    Debug.Log("Going through items " + item.name);
+                    if(m_itemDictionary.TryGetValue(equip, out InventoryItem val)){
+                        value = val;
+                        return true;
+                    };
+                    // if (item.partsRequired.SequenceEqual(equip.partsRequired) && item.usedMaterials.SequenceEqual(equip.usedMaterials)){
+                    //     if(m_itemDictionary.TryGetValue(item, out InventoryItem val)){
+                    //         value = val;
+                    //         return true;
+                    //     }
+                    // } 
                 }
                 value = null;
                 return false;
@@ -108,6 +118,10 @@ public class InventoryManager
         foreach (InventoryItem item in inventory){
             Debug.Log(item.stackSize + " " + item.data.name);
         }
+    }
+
+    public void SetOwner(Creature newOwner){
+        owner = newOwner;
     }
 
 }

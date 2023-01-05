@@ -34,5 +34,4 @@ public class Equipment : HistoricalEntity
         this.durability = _durability;
         this.notes = _notes;
     }
-
 }

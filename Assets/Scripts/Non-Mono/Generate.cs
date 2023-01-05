@@ -260,6 +260,9 @@ public static class Generate
                 for (int i = 0; i < numGear; i++)
                 {
                     initGear[i] = RandomEquipment(createNew);
+                    //gen.equipment.Add(initGear[i]);
+                    initGear[i].AddToHistory(gen);
+                    Debug.Log("History count: " + initGear[i].GetHistory.Count);
                 }
             }
             else{
@@ -280,7 +283,7 @@ public static class Generate
             Location initLocation = (location == null)? RandomLocation(createNew):location;
             Sprite initSprite = (crest == null)? null: crest;
             List<Adventurer> initAdventurers = new List<Adventurer>();
-            int numAdventurers = Random.Range(1,4);
+            int numAdventurers = Random.Range(2,4);
             for (int i = 0; i < numAdventurers; i++)
             {
                 initAdventurers.Add(RandomAdventurer(createNew));

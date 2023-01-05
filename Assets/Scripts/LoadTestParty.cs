@@ -53,10 +53,12 @@ public class LoadTestParty : MonoBehaviour
             
             //Create new inventory of Equipment if needed
             if(adventurer.equipment.inventory.Count== 0){
-                int starterEquipmentCount = Random.Range(0,10);
+                int starterEquipmentCount = Random.Range(2,4);
                 for (int i = 0; i < starterEquipmentCount; i++)
                 {
                     InventoryItem newItem = new InventoryItem(Generate.RandomEquipment(true));
+                    Equipment equipment = newItem.data as Equipment;
+                    equipment.AddToHistory(adventurer);
                     adventurer.equipment.inventory.Add(newItem);
                 }
 
