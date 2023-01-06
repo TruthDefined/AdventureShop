@@ -42,30 +42,31 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
         }
     }
 
+    //TODO: Bug when re-adding equipment to original owner
+    //TODO: Does not remove equipment from Player inventory when assigned to Adventurer
     public bool addToSocket( GameObject droppedItem){
         UIContainer current = GetComponentInChildren<UIContainer>();
         UIContainer dropped = droppedItem.GetComponentInChildren<UIContainer>();
-        if(current.item.data.GetType() == typeof(AdventurerParty)){
-            if(dropped.item.data.GetType() == typeof(Adventurer)){
-                AdventurerParty party = current.item.data as AdventurerParty;
-                party.adventurers.Add(dropped.item.data as Adventurer);
+        Debug.Log($"Contained Item == {current.item.data[0].GetType()}");
+        if(current.item.data[0].GetType() == typeof(AdventurerParty)){
+            if(dropped.item.data[0].GetType() == typeof(Adventurer)){
+                AdventurerParty party = current.item.data[0] as AdventurerParty;
+                party.adventurers.Add(dropped.item.data[0] as Adventurer);
                 GetComponentInParent<UIDataDisplayController>().displayParty(party);
                 return true;
             }
         }
-        else if(current.item.data.GetType() == typeof(Adventurer)){
-            if(dropped.item.data.GetType() == typeof(Equipment)){
-                Equipment item = dropped.item.data as Equipment;
-                Debug.Log(item.GetHistory.Count);
-                Adventurer lastAdventurer = item.GetHistory[item.GetHistory.Count-1] as Adventurer;
+        else if(current.item.data[0].GetType() == typeof(Adventurer)){
+            if(dropped.item.data[0].GetType() == typeof(Equipment)){
+                Equipment item = dropped.item.data[0] as Equipment;
+                Debug.Log($"***Item: {item.name}");
+                Creature lastOwner = item.GetHistory[item.GetHistory.Count-1] as Creature;
                 //Adventurer lastAdventurer = item.GetHistory[0] as Adventurer;
-                Debug.Log("LastOwner: " + lastAdventurer.name);
-                Adventurer adventurer = current.item.data as Adventurer;
-                
-                lastAdventurer.equipment.Remove(dropped.item.data as Equipment);
-                adventurer.equipment.Add(dropped.item.data as Equipment);
+                Debug.Log("LastOwner: " + lastOwner.name);
+                Adventurer adventurer = current.item.data[0] as Adventurer;
+                adventurer.equipment.Add(dropped.item.data[0] as Equipment);
+                lastOwner.equipment.Remove(dropped.item.data[0] as Equipment);
                 GetComponentInParent<UIDataDisplayController>().displayAdventurer(adventurer);
-                //TODO: Add Equipment to Adventurer;
                 return true;
             }
         }

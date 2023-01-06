@@ -10,11 +10,11 @@ public class SelectableSocket : MonoBehaviour, ISelectHandler, IPointerClickHand
     private UIContainer dataInSocket;
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
-        if(dataInSocket.item.data.GetType() == typeof(Adventurer)){
-            parentController.displayAdventurer(dataInSocket.item.data as Adventurer);
+        if(dataInSocket.item.data[0].GetType() == typeof(Adventurer)){
+            parentController.displayAdventurer(dataInSocket.item.data[0] as Adventurer);
         }
-        if(dataInSocket.item.data.GetType() == typeof(AdventurerParty)){
-            parentController.displayParty(dataInSocket.item.data as AdventurerParty);
+        if(dataInSocket.item.data[0].GetType() == typeof(AdventurerParty)){
+            parentController.displayParty(dataInSocket.item.data[0] as AdventurerParty);
         }
 
     }

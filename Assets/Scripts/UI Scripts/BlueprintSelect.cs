@@ -16,7 +16,7 @@ public class BlueprintSelect : MonoBehaviour, IDropHandler
     public void OnDrop(PointerEventData eventData)
     {
         Debug.Log(eventData.pointerDrag.name);
-        RawMaterial droppedItem = eventData.pointerDrag.GetComponentInChildren<UIInventoryItemContainer>().item.data as RawMaterial;
+        RawMaterial droppedItem = eventData.pointerDrag.GetComponentInChildren<UIInventoryItemContainer>().item.data[0] as RawMaterial;
         var materialTypeOfDroppedItem = droppedItem.type;
         if(type.Contains(materialTypeOfDroppedItem)){
             int data = Dropdown.options.FindIndex((x) => x.text == droppedItem.name);

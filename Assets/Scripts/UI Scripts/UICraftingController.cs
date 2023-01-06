@@ -93,7 +93,7 @@ public class UICraftingController : MonoBehaviour
                 //Populate the dropdown with acceptable items
                 foreach(RawMaterial raw in _entityManager.rawMaterials){
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(raw.type)){
-                        if(Singleton.Instance.Player_Raw_Inventory.Get(raw).stackSize > 0){
+                        if(Singleton.Instance.Player_Raw_Inventory.inventory.Count>0){
                             tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData(raw.name,raw.icon));
                         }
                     }

@@ -39,18 +39,18 @@ public class UIDataDisplayController : MonoBehaviour
     /// </summary>
     /// <param name="slot"></param>
     /// <param name="item"></param>
+    // public void AddItemToSlot(GameObject slot, InventoryItem item){
+    //     GameObject obj = Instantiate(m_itemPrefab);
+    //     obj.transform.SetParent(slot.transform,false);
+    //     obj.name = item.data.name ;
+    //     UIInventoryItemContainer container = obj.GetComponent<UIInventoryItemContainer>();
+    //     container.item = item;
+    // }
+
     public void AddItemToSlot(GameObject slot, InventoryItem item){
         GameObject obj = Instantiate(m_itemPrefab);
         obj.transform.SetParent(slot.transform,false);
-        obj.name = item.data.name ;
-        UIInventoryItemContainer container = obj.GetComponent<UIInventoryItemContainer>();
-        container.item = item;
-    }
-
-    public void AddItemToSlot(GameObject slot, SlotItem item){
-        GameObject obj = Instantiate(m_itemPrefab);
-        obj.transform.SetParent(slot.transform,false);
-        obj.name = item.data.name ;
+        obj.name = item.containedItem;
         UIContainer container = obj.GetComponent<UIContainer>();
         container.item = item;
     }

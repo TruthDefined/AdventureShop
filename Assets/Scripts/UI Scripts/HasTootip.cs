@@ -38,7 +38,8 @@ public class HasTootip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         _hovered = true;
         lastHovered = eventData.pointerEnter;
         try{
-            _currentData = lastHovered.GetComponentInChildren<UIContainer>().item.data;
+            //TODO: Metadate should be InventoryItem dependant, not Dictionary[0] dependant
+            _currentData = lastHovered.GetComponentInChildren<UIContainer>().item.data[0];
         }
         catch{
             Debug.Log("No Data contained on" +lastHovered.name);

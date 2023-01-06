@@ -15,8 +15,8 @@ public class Creature : HistoricalEntity
     public void Init(string name, Location home, Species species, List<Equipment> startingGear = null, List<RawMaterial> startingMats = null){
         base.Init(name, home);
         this.species = species;
-        this.equipment = new InventoryManager(InventoryType.Equipment);
-        this.inventory = new InventoryManager(InventoryType.RawMaterials);
+        this.equipment = new InventoryManager();
+        this.inventory = new InventoryManager();
         if(startingGear != null){
             foreach(Equipment item in startingGear){
                 this.equipment.Add(item);

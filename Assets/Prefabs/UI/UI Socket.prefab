@@ -10,11 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 2206311497599458605}
   - component: {fileID: 2206311497599458604}
+  - component: {fileID: 2974606797627540214}
   - component: {fileID: 7624385265977907816}
   - component: {fileID: 2206311497599458606}
   - component: {fileID: 2206311497599458607}
   - component: {fileID: 5842215566985781963}
-  - component: {fileID: 2974606797627540214}
   - component: {fileID: 7144577291729014831}
   m_Layer: 5
   m_Name: UI Socket
@@ -53,6 +53,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 611698208c32bdb4182716b393a1de01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2974606797627540214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206311497599458602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5c4de2925d7dae246b267facc16c31a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &7624385265977907816
@@ -130,18 +142,6 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
---- !u!114 &2974606797627540214
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206311497599458602}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c4de2925d7dae246b267facc16c31a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!61 &7144577291729014831
 BoxCollider2D:
   m_ObjectHideFlags: 0

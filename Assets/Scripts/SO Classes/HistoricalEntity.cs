@@ -84,6 +84,7 @@ public class HistoricalEntity : DataEntity
     public void Init(string name, Location location, Creature harvester, Creature originalOwner){
         base.Init(name);
         SetOrigin(location,harvester,originalOwner);
+        AddToHistory(harvester);
     }
 
 }

@@ -13,26 +13,30 @@ public class UIInventoryItemContainer : UIContainer
         m_label = nameLabel.GetComponent<TMP_Text>();
     }
 
-    public void Add(){
-        var temp = Singleton.Instance.Player_Raw_Inventory.inventory.Find((x) => x.data.name == m_label.text);
-        Singleton.Instance.Player_Raw_Inventory.Add(temp.data as RawMaterial);
-    }
-    public void Remove(){
-        var temp = Singleton.Instance.Player_Raw_Inventory.inventory.Find((x) => x.data.name == m_label.text);
-        Singleton.Instance.Player_Raw_Inventory.Remove(temp.data as RawMaterial);
-    }
+    //TODO: FIX ADD/REMOVE
+    // public void Add(RawMaterial raw){
+    //     if(Singleton.Instance.Player_Raw_Inventory.inventory.TryGetValue(m_label.text, out InventoryItem temp)){
+    //         Singleton.Instance.Player_Raw_Inventory.Add(temp.data as RawMaterial);
+    //     }
+    //     //.Find((x) => x.data.name == m_label.text);
+        
+    // }
+    // public void Remove(){
+    //     //var temp = Singleton.Instance.Player_Raw_Inventory.inventory.Find((x) => x.data.name == m_label.text);
+    //     //Singleton.Instance.Player_Raw_Inventory.Remove(temp.data as RawMaterial);
+    // }
 
-    new public SlotItem item{
+    new public InventoryItem item{
         get{
             return _item;
         }
         set{
             _item = value;
-            iconImage.sprite = _item.data.icon;
+            iconImage.sprite = _item.icon;
             if(m_label){
-                m_label.text = _item.data.name;
+                m_label.text = _item.containedItem;
             }
-            stackLabel.GetComponent<TMP_Text>().text = _item.stackSize.ToString();
+            stackLabel.GetComponent<TMP_Text>().text = _item.data.Count.ToString();
         }
     }
 

@@ -14,11 +14,11 @@ public class AdventurerParty : HistoricalEntity
     /// <summary>
     /// Unused Party Gear
     /// </summary>
-    public InventoryManager equipment;
+    public InventoryManager equipment = new InventoryManager();
     /// <summary>
     /// Party Inventory
     /// </summary>
-    public InventoryManager inventory;
+    public InventoryManager inventory = new InventoryManager();
 
     public void Init(string name, Location location, List<Adventurer> adventurers, Sprite crest = null){
         base.Init(name, location);

@@ -187,6 +187,12 @@ public static class Generate
         }  
     }
 
+    static public RawMaterial MaterialOfType(RawMaterial material){
+        RawMaterial newRaw = ScriptableObject.CreateInstance<RawMaterial>();
+        newRaw.Init(material.name,RandomLocation(true),RandomCreature(true),RandomCreature(true),material.type,material.price,material.notes);
+        return newRaw;
+    }
+
     static public Blueprint RandomBlueprint(bool createNew = false, List<PartType> partsRequired = null){
         if(createNew){
             Blueprint gen = ScriptableObject.CreateInstance<Blueprint>();

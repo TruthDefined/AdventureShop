@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class UIInventoryController : UIDataDisplayController
 {
-
     public InventoryType type;
     public GameObject owner;
     private void Start() {
-        InventoryManager.onInventoryChangedEvent += OnUpdateInventory;
-        // OnUpdateInventory();
+        PlayerInventoryManager.onInventoryChangedEvent += OnUpdateInventory;
+        OnUpdateInventory();
     }
 
     private void OnUpdateInventory(){
@@ -20,25 +19,26 @@ public class UIInventoryController : UIDataDisplayController
         DrawInventory();
     }
 
+
     private void DrawInventory(){
         switch (type){
             case InventoryType.Equipment:
                 if(!owner){
                     inventorySlots = new List<GameObject>();
-                    foreach (InventoryItem item in Singleton.Instance.Player_Equipment_Inventory.inventory)
+                    foreach (KeyValuePair<string,InventoryItem> item in Singleton.Instance.Player_Equipment_Inventory.inventory)
                     {
                         GameObject slot = CreateInventorySlot();
-                        AddItemToSlot(slot, item);
+                        AddItemToSlot(slot, item.Value);
                     }
                 }
                 break;
             case InventoryType.RawMaterials:
                 if(!owner){
                     inventorySlots = new List<GameObject>();
-                    foreach (InventoryItem item in Singleton.Instance.Player_Raw_Inventory.inventory)
+                    foreach (KeyValuePair<string,InventoryItem> item in Singleton.Instance.Player_Raw_Inventory.inventory)
                     {
                         GameObject slot = CreateInventorySlot();
-                        AddItemToSlot(slot, item);
+                        AddItemToSlot(slot, item.Value);
                     }
                 }
                 break;

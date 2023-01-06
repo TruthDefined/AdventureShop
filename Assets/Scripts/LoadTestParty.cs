@@ -24,7 +24,7 @@ public class LoadTestParty : MonoBehaviour
         GameObject slot = PartyContainer.CreateInventorySlot();
         Party = Generate.RandomParty(true);
         //SlotItem item = new SlotItem( Party);
-        SlotItem item = new SlotItem(Party);
+        InventoryItem item = new InventoryItem(Party);
         PartyContainer.AddItemToSlot(slot, item);
     }
 
@@ -33,10 +33,10 @@ public class LoadTestParty : MonoBehaviour
         foreach(GameObject slot in ActiveEquipmentSlots){
             Destroy(slot);
         }
-        foreach(InventoryItem equipment in active.equipment.inventory){
+        foreach(KeyValuePair<string,InventoryItem> equipment in active.equipment.inventory){
                 GameObject invSlot = EquipmentContainer.CreateInventorySlot();
                 ActiveEquipmentSlots.Add(invSlot);
-                SlotItem inItem = new SlotItem(equipment.data);
+                InventoryItem inItem = new InventoryItem(equipment.Value.data);
                 EquipmentContainer.AddItemToSlot(invSlot, inItem);
             }
     }
@@ -46,9 +46,10 @@ public class LoadTestParty : MonoBehaviour
             Destroy(slot);
         }
         foreach(Adventurer adventurer in active.adventurers){
+            Debug.Log("Add Adventurer");
             GameObject adSlot = AdventurerContainer.CreateInventorySlot();
             ActiveAdventurerSlots.Add(adSlot);
-            SlotItem adItem = new SlotItem( adventurer);
+            InventoryItem adItem = new InventoryItem( adventurer);
             PartyContainer.AddItemToSlot(adSlot, adItem);
             
             //Create new inventory of Equipment if needed
@@ -57,9 +58,9 @@ public class LoadTestParty : MonoBehaviour
                 for (int i = 0; i < starterEquipmentCount; i++)
                 {
                     InventoryItem newItem = new InventoryItem(Generate.RandomEquipment(true));
-                    Equipment equipment = newItem.data as Equipment;
+                    Equipment equipment = newItem.data[0] as Equipment;
                     equipment.AddToHistory(adventurer);
-                    adventurer.equipment.inventory.Add(newItem);
+                    adventurer.equipment.Add(equipment);
                 }
 
             }        

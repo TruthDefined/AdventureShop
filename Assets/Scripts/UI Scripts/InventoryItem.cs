@@ -1,26 +1,48 @@
-/// <summary>
-/// A container for an inventory item, the number of that item, and functions to add or remove from that stack.
-/// </summary>
-public class InventoryItem : SlotItem
+using System.Collections.Generic;
+using UnityEngine;
+public class InventoryItem
 {
-    // public DataEntity data {get; private set;}
-    // public int stackSize {get; private set;}
+    public List<DataEntity> data {get; protected set;} = new List<DataEntity>();
+    public string containedItem {get; protected set;} = "";
+    public Sprite icon;
 
-    public InventoryItem(DataEntity source) : base(source)
-    {
+    public InventoryItem(DataEntity source){
+        
+        containedItem = source.name;
+        data.Add(source);
+    }
+    public InventoryItem(List<DataEntity> source){
+        containedItem = source[0].name;
         data = source;
-        AddToStack();
+        // foreach (var item in source)
+        // {
+        //     data.Add(item);
+        // }
     }
-    public void AddToStack(){
-        stackSize++;
+
+    public bool Add(DataEntity source){
+        if(containedItem == source.name){
+            data.Add(source);
+            return true;
+        }
+        else{
+            Debug.Log($"Cannot add {source.name} to {containedItem} Inventory Item");
+            return false;
+        }
     }
-    public void AddToStack(int num){
-        stackSize += num;
+
+    //Grab the first item and remove it from the inventory
+    public DataEntity Get(){
+        DataEntity pulledObject = data[0];
+        data.Remove(pulledObject);
+        return pulledObject;
     }
-    public void RemoveFromStack(){
-        stackSize--;
-    }
-    public void RemoveFromStack(int num){
-        stackSize -= num;
+
+    //Grabs a specific item and removes it from the invetory
+    public DataEntity Get(DataEntity target){
+        DataEntity pulledObject = data[data.IndexOf(target)];
+        data.Remove(pulledObject);
+        return pulledObject;
+
     }
 }

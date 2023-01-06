@@ -38,17 +38,41 @@ public class CraftingManager : MonoBehaviour
                 }
             }
             //Check to make sure there are enough of each material to craft
+            //TODO: This is why crafting isn't working
+            bool craftable = true;
+            var inventory = Singleton.Instance.Player_Raw_Inventory;
             foreach(RawMaterial mat in matList){
-                if(Singleton.Instance.Player_Raw_Inventory.Get(mat).stackSize>0){
-                    materialsUsed.Add(mat);
-                    Singleton.Instance.Player_Raw_Inventory.Remove(mat);
-                } else{
-                    Debug.Log("Not enough " + mat.name + " to craft!");
-                    foreach (RawMaterial refundMaterial in materialsUsed){
-                        Singleton.Instance.Player_Raw_Inventory.Add(refundMaterial);
+                if(inventory.TypeIsInInventory(mat, out InventoryItem item)){
+                    if(item.data.Count>1){
+                        var use = item.Get() as RawMaterial;
+                        materialsUsed.Add(use);
+                        inventory.Remove(use);
+                    } else{
+                        craftable = false;
+                        Debug.Log($"Not enough {item.containedItem} to craft");
                     }
-                    return;
                 }
+                else{
+                    Debug.Log("Material not in inventory");
+                }
+
+                // if(Singleton.Instance.Player_Raw_Inventory.inventory.Count>0){
+                //     materialsUsed.Add(mat);
+                //     Singleton.Instance.Player_Raw_Inventory.Remove(mat);
+                // } else{
+                //     Debug.Log("Not enough " + mat.name + " to craft!");
+                //     foreach (RawMaterial refundMaterial in materialsUsed){
+                //         Singleton.Instance.Player_Raw_Inventory.Add(refundMaterial);
+                //     }
+                //     return;
+                // }
+            }
+            if(!craftable){
+                Debug.Log("Refunding Materials");
+                foreach (RawMaterial refundMaterial in materialsUsed){
+                    inventory.Add(refundMaterial);
+                }
+                return;
             }
 
             Equipment newEquipment = ScriptableObject.CreateInstance("Equipment") as Equipment;
@@ -65,7 +89,7 @@ public class CraftingManager : MonoBehaviour
                 }
             }
             //TODO: Player should be designed as a CREATURE for ease of crafting Init (Or equipment needs special Init just for player-crafted status)
-            newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, new Location(), new Creature(), new Creature(), craftingBlueprint, partsList, matList, 0, 0, "");
+            newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, Generate.RandomLocation(true), Singleton.Instance.Player, Generate.RandomCreature(true), craftingBlueprint, partsList, materialsUsed, 0, 0, "");
             newEquipment.name = importantMatNames + " " + craftingBlueprint.name;
             Singleton.Instance.EntityManager.AddEquipment(newEquipment);
             Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment);

@@ -11,16 +11,16 @@ public class UIContainer : MonoBehaviour
 
     [HideInInspector]
     public Transform parentAfterDrag;
-    protected SlotItem _item;
-    public SlotItem item{
+    protected InventoryItem _item;
+    public InventoryItem item{
         get{
             return _item;
         }
         set{
             _item = value;
-            iconImage.sprite = _item.data.icon;
+            iconImage.sprite = _item.icon;
             if(m_label){
-                m_label.text = _item.data.name;
+                m_label.text = _item.containedItem;
             }
         }
     }
