@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 public class InventoryItem
 {
     public List<DataEntity> data {get; protected set;} = new List<DataEntity>();

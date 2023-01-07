@@ -85,7 +85,7 @@ public class UIToolTip : MonoBehaviour
     }
 
     public IEnumerator UpdateTooltip(InventoryItem currentObject){
-        if(currentObject.icon) icon.sprite = currentObject.icon;
+        if(currentObject.data[0].icon) icon.sprite = currentObject.data[0].icon;
         //else{icon.}
         Singleton.Instance.TooltipPrefab.SetActive(true);
         SetTitle(currentObject.data[0].name);
@@ -101,7 +101,7 @@ public class UIToolTip : MonoBehaviour
                 }
                 break;
             case "RawMaterial":
-                Debug.Log("Recognized Raw Material");
+                //Debug.Log("Recognized Raw Material");
                     foreach(DataEntity d in currentObject.data){
                         RawMaterial mat = d as RawMaterial;
                         AddNewEntry("Material: ", mat.name, EntryTemplate);

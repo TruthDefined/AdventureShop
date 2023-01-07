@@ -190,6 +190,7 @@ public static class Generate
     static public RawMaterial MaterialOfType(RawMaterial material){
         RawMaterial newRaw = ScriptableObject.CreateInstance<RawMaterial>();
         newRaw.Init(material.name,RandomLocation(true),RandomCreature(true),RandomCreature(true),material.type,material.price,material.notes);
+        newRaw.icon = material.icon;
         return newRaw;
     }
 
