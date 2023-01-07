@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class UIToolTip : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class UIToolTip : MonoBehaviour
     public int heightAdjustment = 25;
     //Refactor below
     private InventoryItem tooltipEntity;
+    public Image icon;
     public bool showHistory = false;
 
     //
@@ -83,7 +85,8 @@ public class UIToolTip : MonoBehaviour
     }
 
     public IEnumerator UpdateTooltip(InventoryItem currentObject){
-        
+        if(currentObject.icon) icon.sprite = currentObject.icon;
+        //else{icon.}
         Singleton.Instance.TooltipPrefab.SetActive(true);
         SetTitle(currentObject.data[0].name);
         string type = currentObject.data[0].entityType;

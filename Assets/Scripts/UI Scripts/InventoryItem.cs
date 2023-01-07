@@ -9,10 +9,12 @@ public class InventoryItem
     public InventoryItem(DataEntity source){
         
         containedItem = source.name;
+        icon = source.icon;
         data.Add(source);
     }
     public InventoryItem(List<DataEntity> source){
         containedItem = source[0].name;
+        icon = source[0].icon;
         data = source;
         // foreach (var item in source)
         // {
@@ -21,6 +23,9 @@ public class InventoryItem
     }
 
     public bool Add(DataEntity source){
+       
+        icon = source.icon;
+        
         if(containedItem == source.name){
             data.Add(source);
             return true;
