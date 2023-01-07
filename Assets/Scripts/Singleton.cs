@@ -52,7 +52,7 @@ public class Singleton : MonoBehaviour
         //Add all raw materials currently registered to the players inventory
         if(debug){
             foreach(RawMaterial mat in EntityManager.rawMaterials){
-                Player_Raw_Inventory.Add(Generate.MaterialOfType(mat));
+                Player_Raw_Inventory.Add(Generate.MaterialOfType(mat));                
             }
             //Debug.Log(TimeManager.GetCurrentDate());
         }

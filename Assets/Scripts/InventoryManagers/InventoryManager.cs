@@ -39,7 +39,7 @@ public class InventoryManager
         }
         else{
             InventoryItem newItem = new InventoryItem(referenceData);
-            newItem.Add(referenceData);
+            //newItem.Add(referenceData);
             inventory.Add(referenceData.name, newItem);
         }
         try

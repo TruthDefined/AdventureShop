@@ -87,6 +87,7 @@ public class UIToolTip : MonoBehaviour
         SetTitle(currentObject.data[0].name);
         string type = currentObject.data[0].entityType;
         AddNewEntry("Entity Type: ", type);
+        AddNewEntry("Number in Inventory: ", currentObject.data.Count.ToString());
     
         switch(type){
             case"AdventurerParty":
@@ -107,6 +108,16 @@ public class UIToolTip : MonoBehaviour
                 Adventurer adv = currentObject.data[0] as Adventurer;
                 AddNewEntry("Species: ", adv.species.name);
                 AddNewEntry("Class: ", adv.adventurerClass.name);
+
+                break;
+            case "Equipment":
+                Equipment eq = currentObject.data[0] as Equipment;
+                AddNewEntry("Parts Required: ",eq.partsRequired.Count.ToString());
+                AddNewEntry("Materials Used: ",eq.usedMaterials.Count.ToString());
+                for (int i = 0; i < eq.partsRequired.Count; i++)
+                {
+                    AddNewEntry(eq.partsRequired[i].name,eq.usedMaterials[i].name);
+                }
 
                 break;
             default:

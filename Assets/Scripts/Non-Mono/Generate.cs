@@ -90,9 +90,9 @@ public static class Generate
         if(createNew){
             PartType gen = ScriptableObject.CreateInstance<PartType>();
             bool initOptional = (optional == true)? true : false;
-            List<MaterialType> initTypes;
+            List<MaterialType> initTypes = new List<MaterialType>();
             if(acceptableMaterials == null){
-                int numMaterials = Random.Range(0,5);
+                int numMaterials = Random.Range(1,5);
                 initTypes = new List<MaterialType>();
                 for (int i = 0; i < numMaterials; i++)
                 {
@@ -224,20 +224,19 @@ public static class Generate
             int initprice = (price == 0) ? 0 : price;
             int initDur = (durability == 0) ? 0 : durability;
             string initNotes = (notes == "") ? "" : notes;
-
+            int partCount = Random.Range(1,5);
             List<PartType> initParts = new List<PartType>();
-            if(initParts != parts) initParts = parts;
+            if(parts != null) initParts = parts;
             else{
-                int partCount = Random.Range(0,5);
+                
                 for (int i = 0; i < partCount; i++)
                 {
                     initParts.Add(RandomPartType(createNew));
                 }
             }
             List<RawMaterial> initMats = new List<RawMaterial>();
-            if(initMats != mats) initMats = mats;
+            if(mats != null) initMats = mats;
             else{
-                int partCount = Random.Range(0,5);
                 for (int i = 0; i < partCount; i++)
                 {
                     initMats.Add(RandomMaterial(createNew));
