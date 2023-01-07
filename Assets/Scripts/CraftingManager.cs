@@ -43,10 +43,11 @@ public class CraftingManager : MonoBehaviour
             var inventory = Singleton.Instance.Player_Raw_Inventory;
             foreach(RawMaterial mat in matList){
                 if(inventory.TypeIsInInventory(mat, out InventoryItem item)){
-                    if(item.data.Count>1){
+                    Debug.Log($"{item.data.Count} {mat} in inventory");
+                    if(item.data.Count>=1){
                         var use = item.Get() as RawMaterial;
                         materialsUsed.Add(use);
-                        inventory.Remove(use);
+                        //inventory.Remove(use);
                     } else{
                         craftable = false;
                         Debug.Log($"Not enough {item.containedItem} to craft");
