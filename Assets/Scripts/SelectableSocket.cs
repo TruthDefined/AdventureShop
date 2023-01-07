@@ -2,14 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 
-public class SelectableSocket : MonoBehaviour, ISelectHandler, IPointerClickHandler
+public class SelectableSocket : MonoBehaviour, ISelectHandler, IPointerClickHandler, IDeselectHandler
 {
     private UIDataDisplayController parentController;
     private UIContainer dataInSocket;
+    private Color originalColor = Color.clear;
     void ISelectHandler.OnSelect(BaseEventData eventData)
     {
+        originalColor = GetComponent<Image>().color;
+        GetComponent<Image>().color = Color.yellow;
         if(dataInSocket.item.data[0].GetType() == typeof(Adventurer)){
             parentController.displayAdventurer(dataInSocket.item.data[0] as Adventurer);
         }
@@ -17,6 +21,11 @@ public class SelectableSocket : MonoBehaviour, ISelectHandler, IPointerClickHand
             parentController.displayParty(dataInSocket.item.data[0] as AdventurerParty);
         }
 
+    }
+
+    void IDeselectHandler.OnDeselect(BaseEventData eventData)
+    {
+        GetComponent<Image>().color = originalColor;
     }
 
     // Start is called before the first frame update

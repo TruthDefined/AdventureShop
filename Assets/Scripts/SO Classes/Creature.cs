@@ -19,12 +19,12 @@ public class Creature : HistoricalEntity
         this.inventory = new InventoryManager();
         if(startingGear != null){
             foreach(Equipment item in startingGear){
-                this.equipment.Add(item);
+                this.equipment.Add(item, this);
             }
         }
         if(startingMats != null){
             foreach(RawMaterial item in startingMats){
-                this.inventory.Add(item);
+                this.inventory.Add(item, this);
             }
         }
         // if(artPrefab == null) this.artPrefab = new GameObject();

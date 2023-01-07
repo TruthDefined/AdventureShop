@@ -59,8 +59,8 @@ public class LoadTestParty : MonoBehaviour
                 {
                     InventoryItem newItem = new InventoryItem(Generate.RandomEquipment(true));
                     Equipment equipment = newItem.data[0] as Equipment;
-                    equipment.AddToHistory(adventurer);
-                    adventurer.equipment.Add(equipment);
+                    //equipment.AddToHistory(adventurer);
+                    adventurer.equipment.Add(equipment, adventurer);
                 }
 
             }        

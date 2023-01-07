@@ -33,7 +33,7 @@ public class InventoryManager
     /// <summary>
     /// Adds or increases count of passed item from inventory.
     /// </summary>
-    public virtual void Add(DataEntity referenceData){
+    public virtual void Add(DataEntity referenceData, Creature newOwner = null){
         if(TypeIsInInventory(referenceData, out InventoryItem value)){
             value.Add(referenceData);
         }
@@ -41,6 +41,20 @@ public class InventoryManager
             InventoryItem newItem = new InventoryItem(referenceData);
             newItem.Add(referenceData);
             inventory.Add(referenceData.name, newItem);
+        }
+        try
+        {
+            HistoricalEntity hist = referenceData as HistoricalEntity;
+            if(newOwner){
+                hist.AddToHistory(newOwner);
+                Debug.Log("Added to history");
+            }
+            
+        }
+        catch (System.Exception)
+        {
+            Debug.Log("Not Historical Entity");
+            throw;
         }
         //PrintInventory();
         //onInventoryChangedEvent();

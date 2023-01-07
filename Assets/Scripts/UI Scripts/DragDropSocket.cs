@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System;
 
 public class DragDropSocket : MonoBehaviour, IDropHandler
 {
@@ -16,7 +17,7 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
         DraggableItem oldDraggable;
         //Save the parent of the dropped item, for similar reasons
         oldParent = droppedDraggableItem.parentAfterDrag;
-        Debug.Log(oldParent.name);
+        Debug.Log($"Old Parent: {oldParent.name}");
         Debug.Log(droppedItem.name + " dropped on " + transform.parent.name);
         
         if(sameTypeAsSocket(droppedItem)){
@@ -38,7 +39,7 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
         }
 
         if(addToSocket(droppedItem)){
-            Debug.Log("Added!");
+            //Debug.Log("Added!");
         }
     }
 
@@ -47,7 +48,7 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
     public bool addToSocket( GameObject droppedItem){
         UIContainer current = GetComponentInChildren<UIContainer>();
         UIContainer dropped = droppedItem.GetComponentInChildren<UIContainer>();
-        Debug.Log($"Contained Item == {current.item.data[0].GetType()}");
+        //Debug.Log($"Contained Item == {current.item.data[0].GetType()}");
         if(current.item.data[0].GetType() == typeof(AdventurerParty)){
             if(dropped.item.data[0].GetType() == typeof(Adventurer)){
                 AdventurerParty party = current.item.data[0] as AdventurerParty;
@@ -58,15 +59,18 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
         }
         else if(current.item.data[0].GetType() == typeof(Adventurer)){
             if(dropped.item.data[0].GetType() == typeof(Equipment)){
+                //Grabe the first item from the InventoryItem Dictionary
                 Equipment item = dropped.item.data[0] as Equipment;
-                Debug.Log($"***Item: {item.name}");
+                //Get the last owner of the current piece of Equipment contained in InventoryItem Dictionary
                 Creature lastOwner = item.GetHistory[item.GetHistory.Count-1] as Creature;
-                //Adventurer lastAdventurer = item.GetHistory[0] as Adventurer;
-                Debug.Log("LastOwner: " + lastOwner.name);
+                //Grab the first(and only) adventurer in current InventoryItem Dictionary
                 Adventurer adventurer = current.item.data[0] as Adventurer;
-                adventurer.equipment.Add(dropped.item.data[0] as Equipment);
+                //Add Item to new inventory
+                adventurer.equipment.Add(dropped.item.data[0] as Equipment,adventurer);
+                //Remove Item from old inventory
                 lastOwner.equipment.Remove(dropped.item.data[0] as Equipment);
                 GetComponentInParent<UIDataDisplayController>().displayAdventurer(adventurer);
+                EventSystem.current.SetSelectedGameObject(current.transform.parent.gameObject);
                 return true;
             }
         }

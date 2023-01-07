@@ -92,7 +92,7 @@ public class CraftingManager : MonoBehaviour
             newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, Generate.RandomLocation(true), Singleton.Instance.Player, Generate.RandomCreature(true), craftingBlueprint, partsList, materialsUsed, 0, 0, "");
             newEquipment.name = importantMatNames + " " + craftingBlueprint.name;
             Singleton.Instance.EntityManager.AddEquipment(newEquipment);
-            Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment);
+            Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment,Singleton.Instance.Player);
 
         }
     }

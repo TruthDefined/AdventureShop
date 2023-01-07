@@ -9,7 +9,7 @@ public class HasTootip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 {
 
     private InputAction showTooltipAction;
-    private DataEntity _currentData;
+    private InventoryItem _currentData;
     public bool _hovered;
     private UIToolTip tooltip;
     private GameObject lastHovered;
@@ -39,7 +39,7 @@ public class HasTootip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         lastHovered = eventData.pointerEnter;
         try{
             //TODO: Metadate should be InventoryItem dependant, not Dictionary[0] dependant
-            _currentData = lastHovered.GetComponentInChildren<UIContainer>().item.data[0];
+            _currentData = lastHovered.GetComponentInChildren<UIContainer>().item;
         }
         catch{
             Debug.Log("No Data contained on" +lastHovered.name);

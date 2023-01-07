@@ -11,7 +11,10 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
     public Transform parentAfterDrag;
 
     private void Awake() {
-        image = GetComponent<UIInventoryItemContainer>().iconImage;
+        if(image){
+            image = GetComponent<UIContainer>().iconImage;
+        }
+        
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -28,7 +31,7 @@ public class DraggableItem : MonoBehaviour, IBeginDragHandler, IDragHandler, IEn
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print("EndDrag");
+        //print("EndDrag");
         transform.SetParent(parentAfterDrag);
         image.raycastTarget = true;
     }

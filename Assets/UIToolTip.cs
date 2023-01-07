@@ -14,7 +14,8 @@ public class UIToolTip : MonoBehaviour
     public GameObject tooltipPanel;
     public int heightAdjustment = 25;
     //Refactor below
-    private DataEntity tooltipEntity;
+    private InventoryItem tooltipEntity;
+    public bool showHistory = false;
 
     //
 
@@ -63,7 +64,7 @@ public class UIToolTip : MonoBehaviour
         RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform) canvas.transform, Input.mousePosition, canvas.worldCamera, out position);
         tooltipPanel.transform.position = canvas.transform.TransformPoint(position);
     }
-    public void showTooltip(DataEntity item, bool active){
+    public void showTooltip(InventoryItem item, bool active){
         tooltipEntity = item;
         if(active){
             if(!tooltipPanel.activeSelf){
@@ -80,32 +81,43 @@ public class UIToolTip : MonoBehaviour
         
     }
 
-    public IEnumerator UpdateTooltip(DataEntity currentObject){
+    public IEnumerator UpdateTooltip(InventoryItem currentObject){
         
         Singleton.Instance.TooltipPrefab.SetActive(true);
-        SetTitle(currentObject.name);
-        string type = currentObject.entityType;
+        SetTitle(currentObject.data[0].name);
+        string type = currentObject.data[0].entityType;
         AddNewEntry("Entity Type: ", type);
     
         switch(type){
             case"AdventurerParty":
-                AdventurerParty aP = currentObject as AdventurerParty;
+                AdventurerParty aP = currentObject.data[0] as AdventurerParty;
                 foreach (Adventurer a in aP.adventurers){
                     AddNewEntry( a.name, a.species.name + " " + a.adventurerClass.name);
                 }
                 break;
-            case "Raw Material":
+            case "RawMaterial":
                 Debug.Log("Recognized Raw Material");
-                //foreach(RawMaterial mat in Singleton.Instance.Player_Raw_Inventory)
+                    foreach(DataEntity d in currentObject.data){
+                        RawMaterial mat = d as RawMaterial;
+                        AddNewEntry("Material: ", mat.name);
+                        AddNewEntry("Original Owner: ", mat.GetOrigin[2].name);
+                    }
                 break;
             case "Adventurer":
-                Adventurer adv = currentObject as Adventurer;
+                Adventurer adv = currentObject.data[0] as Adventurer;
                 AddNewEntry("Species: ", adv.species.name);
                 AddNewEntry("Class: ", adv.adventurerClass.name);
 
                 break;
             default:
             break;
+        }
+
+        if(showHistory && currentObject.data[0] as HistoricalEntity){
+            HistoricalEntity historicalObject = currentObject.data[0] as HistoricalEntity;
+            foreach(DataEntity historicalEntry in historicalObject.GetHistory){
+                AddNewEntry("Owner: ", historicalEntry.name);
+            }
         }
 
 
