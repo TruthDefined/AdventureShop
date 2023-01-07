@@ -9,6 +9,7 @@ public class UIToolTip : MonoBehaviour
     private TMP_Text Title;
     [SerializeField]
     private GameObject EntryTemplate;
+    public GameObject tabbedEntryTempalte;
     private List<GameObject> Entries = new List<GameObject>(); 
     private Canvas canvas;
     public GameObject tooltipPanel;
@@ -38,10 +39,10 @@ public class UIToolTip : MonoBehaviour
     }
 
 
-    public void AddNewEntry(string title, string value){
+    public void AddNewEntry(string title, string value, GameObject template){
         //TODO: Could make this more efficient by enable.disable and setting values instead of instantiating and deleting entries.
         //Create a new entry, and set it as my child
-        GameObject obj = Instantiate(EntryTemplate);
+        GameObject obj = Instantiate(template);
         obj.transform.SetParent(tooltipPanel.transform,false);
 
         //Set new text values and add them to the list of children
@@ -86,37 +87,39 @@ public class UIToolTip : MonoBehaviour
         Singleton.Instance.TooltipPrefab.SetActive(true);
         SetTitle(currentObject.data[0].name);
         string type = currentObject.data[0].entityType;
-        AddNewEntry("Entity Type: ", type);
-        AddNewEntry("Number in Inventory: ", currentObject.data.Count.ToString());
+        AddNewEntry("Entity Type: ", type, EntryTemplate);
+        AddNewEntry("Number in Inventory: ", currentObject.data.Count.ToString(), EntryTemplate);
     
         switch(type){
             case"AdventurerParty":
                 AdventurerParty aP = currentObject.data[0] as AdventurerParty;
                 foreach (Adventurer a in aP.adventurers){
-                    AddNewEntry( a.name, a.species.name + " " + a.adventurerClass.name);
+                    AddNewEntry( a.name, a.species.name + " " + a.adventurerClass.name, EntryTemplate);
                 }
                 break;
             case "RawMaterial":
                 Debug.Log("Recognized Raw Material");
                     foreach(DataEntity d in currentObject.data){
                         RawMaterial mat = d as RawMaterial;
-                        AddNewEntry("Material: ", mat.name);
-                        AddNewEntry("Original Owner: ", mat.GetOrigin[2].name);
+                        AddNewEntry("Material: ", mat.name, EntryTemplate);
+                        AddNewEntry("Original Owner: ", mat.GetOrigin[2].name, EntryTemplate);
                     }
                 break;
             case "Adventurer":
                 Adventurer adv = currentObject.data[0] as Adventurer;
-                AddNewEntry("Species: ", adv.species.name);
-                AddNewEntry("Class: ", adv.adventurerClass.name);
+                AddNewEntry("Species: ", adv.species.name, EntryTemplate);
+                AddNewEntry("Class: ", adv.adventurerClass.name, EntryTemplate);
 
                 break;
             case "Equipment":
                 Equipment eq = currentObject.data[0] as Equipment;
-                AddNewEntry("Parts Required: ",eq.partsRequired.Count.ToString());
-                AddNewEntry("Materials Used: ",eq.usedMaterials.Count.ToString());
+                AddNewEntry("Parts Required: ",eq.partsRequired.Count.ToString(), EntryTemplate);
+                AddNewEntry("Materials Used: ",eq.usedMaterials.Count.ToString(), EntryTemplate);
                 for (int i = 0; i < eq.partsRequired.Count; i++)
                 {
-                    AddNewEntry(eq.partsRequired[i].name,eq.usedMaterials[i].name);
+                    AddNewEntry(eq.partsRequired[i].name,eq.usedMaterials[i].name, EntryTemplate);
+                    AddNewEntry(eq.usedMaterials[i].name,eq.usedMaterials[i].GetOrigin[2].name, tabbedEntryTempalte);
+                    
                 }
 
                 break;
@@ -127,7 +130,7 @@ public class UIToolTip : MonoBehaviour
         if(showHistory && currentObject.data[0] as HistoricalEntity){
             HistoricalEntity historicalObject = currentObject.data[0] as HistoricalEntity;
             foreach(DataEntity historicalEntry in historicalObject.GetHistory){
-                AddNewEntry("Owner: ", historicalEntry.name);
+                AddNewEntry("Owner: ", historicalEntry.name, EntryTemplate);
             }
         }
 

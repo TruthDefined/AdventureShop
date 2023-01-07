@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 632d85dfcdda70441ada7c28be05fe2a, type: 3}
   m_Name: Shield
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: cf9ccc98a4bd3e047b85e1e43adea5e9, type: 3}
+  entityType: Blueprint
+  icon: {fileID: 21300000, guid: 36fc0a2af9954924aa8ec967f5b79d40, type: 3}
+  abilities: []
   partsRequired:
   - {fileID: 11400000, guid: f7077c14c4eb20e4da99435d3a574c68, type: 2}
   - {fileID: 11400000, guid: 2cb8ebad5678b0042a8afa6b14182468, type: 2}

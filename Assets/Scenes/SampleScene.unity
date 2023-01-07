@@ -239,8 +239,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Title: {fileID: 2078424131}
   EntryTemplate: {fileID: 1452668477559447628, guid: 0b29b1d39b3a7fd42bad882d148ae1fd, type: 3}
+  tabbedEntryTempalte: {fileID: 436954809399927395, guid: e012f3c6862a51546a10256d82351632, type: 3}
   tooltipPanel: {fileID: 1177648833}
   heightAdjustment: 30
+  showHistory: 0
 --- !u!1 &58017270
 GameObject:
   m_ObjectHideFlags: 0
@@ -2015,7 +2017,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 95.132, y: 329}
+  m_AnchoredPosition: {x: 63.151, y: 320}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1483138882
