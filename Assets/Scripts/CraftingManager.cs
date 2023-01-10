@@ -8,9 +8,11 @@ public class CraftingManager : MonoBehaviour
 {
     private UICraftingController UI;
     private EntityManager eManager;
+    private InventoryManager inventory;
     private void Start() {
         UI = Singleton.Instance.UICraftingController;
         eManager = Singleton.Instance.EntityManager;
+        inventory = Singleton.Instance.Player_Raw_Inventory;
     }
 
     /// <summary>
@@ -28,6 +30,7 @@ public class CraftingManager : MonoBehaviour
                 
                 if(UI.GetDropdownValue(UI.partDropDowns[i]) != 0){
                     partsList.Add(craftingBlueprint.partsRequired[i]);
+                    //Add All raw materials to crafting window
                     matList.Add(eManager.rawMaterials.Find((x) => x.name == UI.GetDropdownOption(UI.partDropDowns[i]).text));
                 }
                 else{
@@ -40,13 +43,15 @@ public class CraftingManager : MonoBehaviour
             //Check to make sure there are enough of each material to craft
             //TODO: This is why crafting isn't working
             bool craftable = true;
-            var inventory = Singleton.Instance.Player_Raw_Inventory;
+            materialsUsed.Clear();
             foreach(RawMaterial mat in matList){
                 if(inventory.TypeIsInInventory(mat, out InventoryItem item)){
                     Debug.Log($"{item.data.Count} {mat} in inventory");
                     if(item.data.Count>=1){
-                        var use = item.Get() as RawMaterial;
+                        RawMaterial use = inventory.Remove(item.Get()) as RawMaterial;
+                        //var use = item.Get() as RawMaterial;
                         materialsUsed.Add(use);
+                        Debug.Log($"Material Added: {use.name}");
                         //inventory.Remove(use);
                     } else{
                         craftable = false;
@@ -55,6 +60,7 @@ public class CraftingManager : MonoBehaviour
                 }
                 else{
                     Debug.Log("Material not in inventory");
+                    craftable = false;
                 }
 
                 // if(Singleton.Instance.Player_Raw_Inventory.inventory.Count>0){
@@ -69,8 +75,9 @@ public class CraftingManager : MonoBehaviour
                 // }
             }
             if(!craftable){
-                Debug.Log("Refunding Materials");
+                Debug.Log($"Refunding {materialsUsed.Count} Materials");
                 foreach (RawMaterial refundMaterial in materialsUsed){
+                    Debug.Log($"Material Refunded: {refundMaterial.name}");
                     inventory.Add(refundMaterial);
                 }
                 return;

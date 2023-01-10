@@ -42,7 +42,7 @@ public class HasTootip : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
             _currentData = lastHovered.GetComponentInChildren<UIContainer>().item;
         }
         catch{
-            Debug.Log("No Data contained on" +lastHovered.name);
+            Debug.Log("No Data contained on " + lastHovered.name);
         }
         
               

@@ -37,10 +37,13 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
                 Debug.Log("Too many items in: " + transform.parent.name);
             }
         }
-
-        if(addToSocket(droppedItem)){
+        else{
+            if(addToSocket(droppedItem)){
             //Debug.Log("Added!");
+            }
         }
+
+        
     }
 
     //TODO: Bug when re-adding equipment to original owner
@@ -68,7 +71,14 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
                 //Add Item to new inventory
                 adventurer.equipment.Add(dropped.item.data[0] as Equipment,adventurer);
                 //Remove Item from old inventory
-                lastOwner.equipment.Remove(dropped.item.data[0] as Equipment);
+                if(lastOwner == Singleton.Instance.Player){
+                    Singleton.Instance.Player_Equipment_Inventory.Remove(dropped.item.data[0] as Equipment);
+                    Debug.Log("Remove from player inventory");
+                }
+                else{
+                    lastOwner.equipment.Remove(dropped.item.data[0] as Equipment);
+                }
+                
                 GetComponentInParent<UIDataDisplayController>().displayAdventurer(adventurer);
                 EventSystem.current.SetSelectedGameObject(current.transform.parent.gameObject);
                 return true;

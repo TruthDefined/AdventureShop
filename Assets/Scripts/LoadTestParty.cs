@@ -46,7 +46,7 @@ public class LoadTestParty : MonoBehaviour
             Destroy(slot);
         }
         foreach(Adventurer adventurer in active.adventurers){
-            Debug.Log("Add Adventurer");
+            //Debug.Log("Add Adventurer");
             GameObject adSlot = AdventurerContainer.CreateInventorySlot();
             ActiveAdventurerSlots.Add(adSlot);
             InventoryItem adItem = new InventoryItem( adventurer);

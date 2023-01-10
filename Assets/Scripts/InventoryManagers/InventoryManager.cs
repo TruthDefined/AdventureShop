@@ -47,7 +47,7 @@ public class InventoryManager
             HistoricalEntity hist = referenceData as HistoricalEntity;
             if(newOwner){
                 hist.AddToHistory(newOwner);
-                Debug.Log("Added to history");
+                //Debug.Log("Added to history");
             }
             
         }
@@ -64,13 +64,26 @@ public class InventoryManager
     /// Reduces or Removes passed item from inventory.
     /// </summary>
 
-    public virtual void Remove(DataEntity referenceData){
+    public virtual DataEntity Remove(DataEntity referenceData){
+        Debug.Log($"Removing {referenceData.name} from inventory");
         if(inventory.TryGetValue(referenceData.name, out InventoryItem value)){
-            inventory.Remove(referenceData.name);
+            DataEntity temp = null;
+            if(value.data.Count > 0)
+            {
+                temp = value.data[0];
+                value.data.Remove(temp);
+                //Debug.Log($"{value.data.Count} {value.containedItem} left in inventory");
+            }
+            if(value.data.Count == 0){
+                inventory.Remove(referenceData.name);
+                //Debug.Log($"{value.data.Count} {value.containedItem} left in inventory");
+            }
+            return temp;
             // value.Get(referenceData);
             // value = null;
         } else{
             Debug.Log($"No item of type {referenceData.name} was found");
+            return null;
         }
         //nInventoryChangedEvent();
         //PrintInventory();
@@ -81,15 +94,18 @@ public class InventoryManager
     /// </summary>
     /// <returns> InventoryItem containing passed entity as data. </returns>
     public bool TypeIsInInventory(DataEntity entity, out InventoryItem value){
-       
-       if(inventory.TryGetValue(entity.name, out InventoryItem val)){
-            value = val;
-            return true;
-        }
-        else{
-            value = null;
-            return false;
-        }
+       if(entity){
+            if(inventory.TryGetValue(entity.name, out InventoryItem val)){
+                value = val;
+                return true;
+            }
+            else{
+                value = null;
+                return false;
+            }
+       }
+       value = null;
+       return false;
         // switch (type){
         //     //TODO: Not working correctly. Likley have to overhault inventory system....
         //     case InventoryType.Equipment:
