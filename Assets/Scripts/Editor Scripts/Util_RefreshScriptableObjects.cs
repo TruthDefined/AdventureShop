@@ -12,13 +12,13 @@ public class Util_RefreshScriptableObjects
    #if UNITY_EDITOR
    [MenuItem("Scriptable Objects/ Print Lists")]
    public static void PrintLists(){
-        EntityManager manager = GameObject.FindObjectOfType<EntityManager>();
+        EntityManager manager = GameObject.FindFirstObjectByType<EntityManager>();
         manager.Print();
    }
    
    [MenuItem("Scriptable Objects/ Refresh in Game Manager")]
    public static void UpdateObjects() {
-        EntityManager manager = GameObject.FindObjectOfType<EntityManager>();
+        EntityManager manager = GameObject.FindFirstObjectByType<EntityManager>();
         UpdateList<Blueprint>(manager);
         UpdateList<MaterialType>(manager);
         UpdateList<PartType>(manager);
@@ -37,7 +37,7 @@ public class Util_RefreshScriptableObjects
    }
     [MenuItem("Scriptable Objects/ Update Textures")]
     public static void UpdateTextures(){
-        EntityManager manager = GameObject.FindObjectOfType<EntityManager>();
+        EntityManager manager = GameObject.FindFirstObjectByType<EntityManager>();
         string[] textureFolder = new string[]{$"Assets/Textures/ScriptableObjects"};
 
         UpdateTexture<Blueprint>(manager.blueprints, textureFolder[0] + "/blueprints");

@@ -65,7 +65,6 @@ public class InventoryManager
     /// </summary>
 
     public virtual DataEntity Remove(DataEntity referenceData){
-        Debug.Log($"Removing {referenceData.name} from inventory");
         if(inventory.TryGetValue(referenceData.name, out InventoryItem value)){
             DataEntity temp = null;
             if(value.data.Count > 0)

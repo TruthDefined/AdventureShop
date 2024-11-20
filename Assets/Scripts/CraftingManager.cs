@@ -46,12 +46,10 @@ public class CraftingManager : MonoBehaviour
             materialsUsed.Clear();
             foreach(RawMaterial mat in matList){
                 if(inventory.TypeIsInInventory(mat, out InventoryItem item)){
-                    Debug.Log($"{item.data.Count} {mat} in inventory");
                     if(item.data.Count>=1){
-                        RawMaterial use = inventory.Remove(item.Get()) as RawMaterial;
+                        RawMaterial use = inventory.Remove(mat) as RawMaterial;
                         //var use = item.Get() as RawMaterial;
                         materialsUsed.Add(use);
-                        Debug.Log($"Material Added: {use.name}");
                         //inventory.Remove(use);
                     } else{
                         craftable = false;
@@ -77,7 +75,7 @@ public class CraftingManager : MonoBehaviour
             if(!craftable){
                 Debug.Log($"Refunding {materialsUsed.Count} Materials");
                 foreach (RawMaterial refundMaterial in materialsUsed){
-                    Debug.Log($"Material Refunded: {refundMaterial.name}");
+                    Debug.Log($"Material Refunded: {refundMaterial}");
                     inventory.Add(refundMaterial);
                 }
                 return;

@@ -8,7 +8,7 @@ using TMPro;
 public class BlueprintSelect : MonoBehaviour, IDropHandler
 {
     public TMP_Text Title;
-    public TMP_Dropdown Dropdown;
+    public Dropdown Dropdown;
     public Image icon;
 
     public List<MaterialType> type;
