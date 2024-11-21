@@ -8,7 +8,7 @@ public class UICraftingController : MonoBehaviour
 {
     private EntityManager _entityManager;
     private List<GameObject> _partDropdowns = new List<GameObject>();
-    private Dropdown _blueprintDropdown;
+    private TMP_Dropdown _blueprintDropdown;
     
 
     public List<GameObject> partDropDowns {get{return _partDropdowns;}} 
@@ -26,20 +26,20 @@ public class UICraftingController : MonoBehaviour
         _blueprintDropdown.ClearOptions();
 
         //Add Empty option to blueprint dropdown
-        _blueprintDropdown.options.Add(new Dropdown.OptionData());
+        _blueprintDropdown.options.Add(new TMP_Dropdown.OptionData());
         
         //Populate dropdown with all possible blueprints
         foreach (Blueprint bprint in _entityManager.blueprints){
-            _blueprintDropdown.options.Add(new Dropdown.OptionData(bprint.name,bprint.icon));
+            _blueprintDropdown.options.Add(new TMP_Dropdown.OptionData(bprint.name,bprint.icon,Color.green));
         }
 
     }
 
 
     /// <returns>The Gameobject represented by the selection of the dropdown. </returns>
-    public Dropdown.OptionData GetDropdownOption(GameObject dropdown){
+    public TMP_Dropdown.OptionData GetDropdownOption(GameObject dropdown){
         
-        Dropdown temp = dropdown.GetComponent<BlueprintSelect>().Dropdown;
+        TMP_Dropdown temp = dropdown.GetComponent<BlueprintSelect>().Dropdown;
         return temp.options[temp.value];
     } 
 
@@ -89,7 +89,7 @@ public class UICraftingController : MonoBehaviour
                     title.color = Color.green;
                 }
 
-                tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new Dropdown.OptionData());
+                tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData());
                 tempDropdown.GetComponent<BlueprintSelect>().type = activeBlueprint.partsRequired[i].acceptableMaterials;
                 //Populate the dropdown with acceptable items
                 foreach(KeyValuePair<string,InventoryItem> raw in Singleton.Instance.Player_Raw_Inventory.inventory){
@@ -106,7 +106,7 @@ public class UICraftingController : MonoBehaviour
 
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(mat.type)){
                         if(Singleton.Instance.Player_Raw_Inventory.inventory.Count>0){
-                            tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new Dropdown.OptionData(mat.name,mat.icon));
+                            tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData(mat.name,mat.icon,Color.green));
                         }
                     }
                 }
