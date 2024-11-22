@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
+using JetBrains.Annotations;
+//using System;
 public static class Generate
 {
     static EntityManager manager = Singleton.Instance.EntityManager;
@@ -276,6 +278,7 @@ public static class Generate
                 initGear = startingGear;
             }
             gen.Init("Adventurer #" + Random.Range(0,1000),initOrigin,initSpecies,initGear,initClass);
+            gen.icon = Singleton.Instance.RandomAdventurers[ Random.Range(0,Singleton.Instance.RandomAdventurers.Length)];
             manager.AddAdventurer(gen);
             return gen;
         }

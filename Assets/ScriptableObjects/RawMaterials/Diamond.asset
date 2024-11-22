@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526f20756d55be045a74722fa6c887ee, type: 3}
   m_Name: Diamond
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  type: {fileID: 11400000, guid: 293e127885c45c94faaf37da53b8bd75, type: 2}
+  entityType: RawMaterial
+  icon: {fileID: 21300000, guid: 16cc47f1ced96504ca65f6e503a72d27, type: 3}
   abilities: []
+  type: {fileID: 11400000, guid: 293e127885c45c94faaf37da53b8bd75, type: 2}
+  price: 0
+  notes: 

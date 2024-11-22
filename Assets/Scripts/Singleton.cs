@@ -14,6 +14,7 @@ public class Singleton : MonoBehaviour
     public TimeManager TimeManager {get; private set;}
     public GameObject TooltipPrefab;
     public Creature Player;
+    public Sprite[] RandomAdventurers;
     public bool debug = true;
     private void Awake()
     {

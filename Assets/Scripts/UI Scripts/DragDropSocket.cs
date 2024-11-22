@@ -7,6 +7,7 @@ using System;
 public class DragDropSocket : MonoBehaviour, IDropHandler
 {
     private Transform oldParent;
+    
     void IDropHandler.OnDrop(PointerEventData eventData)
     {
         //Grab the dropped item from the event
@@ -98,6 +99,7 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
             }
         }
         Debug.Log("Not Inventory");
+        //TODO: When crafted item is dropped on adventurer, they are not seen as having an inventory so this triggers and returns false.
         return false;
         
     }

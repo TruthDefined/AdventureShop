@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526f20756d55be045a74722fa6c887ee, type: 3}
   m_Name: Hard Wood
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  type: {fileID: 11400000, guid: edf4843642df58e4f9994818d7f2b556, type: 2}
+  entityType: RawMaterial
+  icon: {fileID: 21300000, guid: 84ef8ec26ce30154d9b564297d33f15e, type: 3}
   abilities: []
+  type: {fileID: 11400000, guid: edf4843642df58e4f9994818d7f2b556, type: 2}
+  price: 0
+  notes: 

@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526f20756d55be045a74722fa6c887ee, type: 3}
   m_Name: Copper
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  type: {fileID: 11400000, guid: 234bcfaed36d1aa4caef83ecfbe631bc, type: 2}
+  entityType: RawMaterial
+  icon: {fileID: 21300000, guid: d31eed3d20b34d04999d6efc9f109fd5, type: 3}
   abilities: []
+  type: {fileID: 11400000, guid: 234bcfaed36d1aa4caef83ecfbe631bc, type: 2}
+  price: 0
+  notes: 

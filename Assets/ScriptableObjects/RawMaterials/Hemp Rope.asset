@@ -12,6 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526f20756d55be045a74722fa6c887ee, type: 3}
   m_Name: Hemp Rope
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  type: {fileID: 11400000, guid: cb20a0254d3fbac4ab2d772788298663, type: 2}
+  entityType: RawMaterial
+  icon: {fileID: 21300000, guid: 6d6c15bf85f6b2e488217cd7f0d785ce, type: 3}
   abilities: []
+  type: {fileID: 11400000, guid: cb20a0254d3fbac4ab2d772788298663, type: 2}
+  price: 0
+  notes: 

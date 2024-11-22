@@ -30,7 +30,7 @@ public class UICraftingController : MonoBehaviour
         
         //Populate dropdown with all possible blueprints
         foreach (Blueprint bprint in _entityManager.blueprints){
-            _blueprintDropdown.options.Add(new TMP_Dropdown.OptionData(bprint.name,bprint.icon,Color.green));
+            _blueprintDropdown.options.Add(new TMP_Dropdown.OptionData(bprint.name,bprint.icon,Color.white));
         }
 
     }
@@ -106,7 +106,7 @@ public class UICraftingController : MonoBehaviour
 
                     if( activeBlueprint.partsRequired[i].acceptableMaterials.Contains(mat.type)){
                         if(Singleton.Instance.Player_Raw_Inventory.inventory.Count>0){
-                            tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData(mat.name,mat.icon,Color.green));
+                            tempDropdown.GetComponent<BlueprintSelect>().Dropdown.options.Add(new TMP_Dropdown.OptionData(mat.name,mat.icon,Color.white));
                         }
                     }
                 }
