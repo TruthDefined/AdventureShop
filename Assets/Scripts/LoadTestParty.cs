@@ -18,12 +18,12 @@ public class LoadTestParty : MonoBehaviour
     private Adventurer activeAdventurer;
 
     private void Awake() {
-        //displayController = PartyContainer.GetComponent<UIDataDisplayController>();
+        // displayController = PartyContainer.GetComponent<UIDataDisplayController>();
     }
     private void Start() {
         GameObject slot = PartyContainer.CreateInventorySlot();
         Party = Generate.RandomParty(true);
-        //SlotItem item = new SlotItem( Party);
+        // SlotItem item = new SlotItem( Party);
         InventoryItem item = new InventoryItem(Party);
         PartyContainer.AddItemToSlot(slot, item);
     }
@@ -72,5 +72,9 @@ public class LoadTestParty : MonoBehaviour
     }
     public void refreshAdventurer(){
         showEquipment(activeAdventurer);
+    }
+
+    public void createParty(){
+
     }
 }

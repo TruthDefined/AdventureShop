@@ -23,6 +23,7 @@ public class EntityManager : MonoBehaviour
     [SerializeField] private List<Adventurer> _adventurers;
     [SerializeField] private List<AdventurerClass> _adventurerClasses;
     [SerializeField] private List<AdventurerParty> _adventurerParties;
+    [SerializeField] private List<AdventurerGuild> _adventurerGuilds;
     [SerializeField] private List<Creature> _creatures;
     [SerializeField] private List<Equipment> _equipment;
     [SerializeField] private List<Location> _locations;
@@ -34,6 +35,9 @@ public class EntityManager : MonoBehaviour
     public void AddAdventurer(Adventurer add){
         _adventurers.Add(add);
         //onAdventurerAdd();
+    }
+    public void AddGuild(AdventurerGuild add){
+        _adventurerGuilds.Add(add);
     }
     public void AddParty(AdventurerParty add){
         _adventurerParties.Add(add);
@@ -69,6 +73,7 @@ public class EntityManager : MonoBehaviour
     //Make addable via other functions
     public List<Adventurer> adventurers{get{return _adventurers;}set{print("Use AddAdventurer instead");}}
     public List<AdventurerParty> adventurerParties{get{return _adventurerParties;}set{print("Value cannot be set at Runtime");}}
+    public List<AdventurerGuild> adventurerGuilds{get{return _adventurerGuilds;}set{print("Value cannot be set at Runtime");}}
     public List<Creature> creatures{get{return _creatures;}set{print("Value cannot be set at Runtime");}}
     public List<Equipment> equipment{get{return _equipment;}set{print("Value cannot be set at Runtime");}}
     public List<Quest> quests{get{return _quests;}set{print("Value cannot be set at Runtime");}}
@@ -117,6 +122,9 @@ public class EntityManager : MonoBehaviour
             break;
             case System.Type pt when pt == typeof(List<AdventurerParty>):
                 _adventurerParties = newList as List<AdventurerParty>;
+            break;
+            case System.Type pt when pt == typeof(List<AdventurerGuild>):
+                _adventurerGuilds = newList as List<AdventurerGuild>;
             break;
             case System.Type cr when cr == typeof(List<Creature>):
                 _creatures = newList as List<Creature>;

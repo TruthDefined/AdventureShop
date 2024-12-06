@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 526f20756d55be045a74722fa6c887ee, type: 3}
   m_Name: Animal Pelt
   m_EditorClassIdentifier: 
-  sprite: {fileID: 0}
-  type: {fileID: 11400000, guid: 135bbbe484763c04fb2eb5309b031a7e, type: 2}
+  entityType: RawMaterial
+  icon: {fileID: 0}
   abilities: []
+  type: {fileID: 11400000, guid: 135bbbe484763c04fb2eb5309b031a7e, type: 2}
+  price: 0
+  notes: 
+  color: {r: 0, g: 0, b: 0, a: 0}

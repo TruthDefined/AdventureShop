@@ -287,13 +287,13 @@ public static class Generate
         }
     }
 
-    static public AdventurerParty RandomParty(bool createNew = false, Location location = null, List<Adventurer> adventurers = null, Sprite crest = null){
+    static public AdventurerParty RandomParty(bool createNew = false, Location location = null, List<Adventurer> adventurers = null, Sprite crest = null, int minAdventurers = 2, int maxAdventurers = 4){
         if(createNew){
             AdventurerParty gen = ScriptableObject.CreateInstance<AdventurerParty>();
             Location initLocation = (location == null)? RandomLocation(createNew):location;
             Sprite initSprite = (crest == null)? null: crest;
             List<Adventurer> initAdventurers = new List<Adventurer>();
-            int numAdventurers = Random.Range(2,4);
+            int numAdventurers = Random.Range(minAdventurers,maxAdventurers);
             for (int i = 0; i < numAdventurers; i++)
             {
                 initAdventurers.Add(RandomAdventurer(createNew));
@@ -304,6 +304,32 @@ public static class Generate
         }
         else{
             return GetRandom(manager.adventurerParties);
+        }
+    }
+
+    static public AdventurerGuild RandomGuild(bool createNew = false, Location location = null, List<Adventurer> adventurers = null, List<AdventurerParty> parties = null, Sprite crest = null, int minAdventurers = 2, int maxAdventurers = 4, int minParties = 1, int maxParties=2){
+        if(createNew){
+            AdventurerGuild gen = ScriptableObject.CreateInstance<AdventurerGuild>();
+            Location initLocation = (location ==null)? RandomLocation(createNew):location;
+            Sprite initSprite = (crest ==null)? null: crest;
+            List<Adventurer> initAdventurers = new List<Adventurer>();
+            List<AdventurerParty> initParties = new List<AdventurerParty>();
+            int numAdventurers = Random.Range(minAdventurers,maxAdventurers);
+            int numParties = Random.Range(minParties, maxParties);
+            for (int i = 0; i < numAdventurers; i++)
+            {
+                initAdventurers.Add(RandomAdventurer(createNew));
+            }
+            for (int i = 0; i < numParties; i++)
+            {
+                initParties.Add(RandomParty(createNew));
+            }
+            gen.Init("Guild #" + Random.Range(0,1000), initLocation, initParties, initAdventurers, initSprite);
+            manager.AddGuild(gen);
+            return gen;
+        }
+        else{
+            return GetRandom(manager.adventurerGuilds);
         }
     }
     
