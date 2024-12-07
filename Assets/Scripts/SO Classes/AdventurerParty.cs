@@ -29,7 +29,7 @@ public class AdventurerParty : HistoricalEntity
             if( guid.Length > 0 ){
             string path = AssetDatabase.GUIDToAssetPath(guid[Random.Range(0,guid.Length)]);
             this.icon = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-            Debug.Log("Crest Set as " + AssetDatabase.LoadAssetAtPath<Sprite>(path).name);
+            //Debug.Log("Crest Set as " + AssetDatabase.LoadAssetAtPath<Sprite>(path).name);
             }
                 // if(guid.Length == 1){
                 //     string path = AssetDatabase.GUIDToAssetPath(guid[0]);

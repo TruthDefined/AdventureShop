@@ -278,7 +278,7 @@ public static class Generate
                 initGear = startingGear;
             }
             gen.Init("Adventurer #" + Random.Range(0,1000),initOrigin,initSpecies,initGear,initClass);
-            gen.icon = Singleton.Instance.RandomAdventurers[ Random.Range(0,Singleton.Instance.RandomAdventurers.Length)];
+            gen.icon = Singleton.Instance.RandomAdventurerSprites[ Random.Range(0,Singleton.Instance.RandomAdventurerSprites.Length)];
             manager.AddAdventurer(gen);
             return gen;
         }

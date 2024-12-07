@@ -25,20 +25,25 @@ public class UIInventoryController : UIDataDisplayController
             case InventoryType.Equipment:
                 if(!owner){
                     inventorySlots = new List<GameObject>();
-                    foreach (KeyValuePair<string,InventoryItem> item in Singleton.Instance.Player_Equipment_Inventory.inventory)
-                    {
-                        GameObject slot = CreateInventorySlot();
-                        AddItemToSlot(slot, item.Value);
+                    if(Singleton.Instance.Player_Equipment_Inventory.inventory.Count >0){
+                        foreach (KeyValuePair<string,InventoryItem> item in Singleton.Instance.Player_Equipment_Inventory.inventory)
+                        {
+                            GameObject slot = CreateInventorySlot();
+                            AddItemToSlot(slot, item.Value);
+                        }
                     }
+                    
                 }
                 break;
             case InventoryType.RawMaterials:
                 if(!owner){
                     inventorySlots = new List<GameObject>();
-                    foreach (KeyValuePair<string,InventoryItem> item in Singleton.Instance.Player_Raw_Inventory.inventory)
-                    {
-                        GameObject slot = CreateInventorySlot();
-                        AddItemToSlot(slot, item.Value);
+                    if(Singleton.Instance.Player_Raw_Inventory.inventory.Count >0){
+                        foreach (KeyValuePair<string,InventoryItem> item in Singleton.Instance.Player_Raw_Inventory.inventory)
+                        {
+                            GameObject slot = CreateInventorySlot();
+                            AddItemToSlot(slot, item.Value);
+                        }
                     }
                 }
                 break;

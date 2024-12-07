@@ -6,7 +6,15 @@ using UnityEngine.EventSystems;
 public class Singleton : MonoBehaviour
 {
     public static Singleton Instance { get; private set; }
+
+    public PlayerGuild playerGuild { get; private set; }
+    /// <summary>
+    /// Raw Materials owned by the player.
+    /// </summary>
     public PlayerInventoryManager Player_Raw_Inventory { get; private set; }
+    /// <summary>
+    /// Unequipped Equipment owned by the player.
+    /// </summary>
     public PlayerInventoryManager Player_Equipment_Inventory {get; private set;}
     public UICraftingController UICraftingController { get; private set; }
     public CraftingManager CraftingManager {get; private set;}
@@ -14,7 +22,7 @@ public class Singleton : MonoBehaviour
     public TimeManager TimeManager {get; private set;}
     public GameObject TooltipPrefab;
     public Creature Player;
-    public Sprite[] RandomAdventurers;
+    public Sprite[] RandomAdventurerSprites;
     public bool debug = true;
     private void Awake()
     {
@@ -46,10 +54,15 @@ public class Singleton : MonoBehaviour
             EntityManager = gameObject.AddComponent<EntityManager>();
         }
         //Create player inventories
-        Player_Raw_Inventory = new PlayerInventoryManager();
-        Player_Equipment_Inventory = new PlayerInventoryManager();
+        playerGuild = ScriptableObject.CreateInstance<PlayerGuild>();
+        //PlayerGuild.Init("Player",location:null,parties:null,adventurers:null,crest:null);
+
+        Player_Raw_Inventory = playerGuild.inventory;
+        Player_Equipment_Inventory = playerGuild.equipment;
+       
     }
     private void Start() {
+        
         //Add all raw materials currently registered to the players inventory
         if(debug){
             foreach(RawMaterial mat in EntityManager.rawMaterials){
