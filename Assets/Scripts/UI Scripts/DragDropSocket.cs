@@ -50,38 +50,39 @@ public class DragDropSocket : MonoBehaviour, IDropHandler
     //TODO: Bug when re-adding equipment to original owner
     //TODO: Does not remove equipment from Player inventory when assigned to Adventurer
     public bool addToSocket( GameObject droppedItem){
-        UIContainer current = GetComponentInChildren<UIContainer>();
-        UIContainer dropped = droppedItem.GetComponentInChildren<UIContainer>();
+        UIContainer currentContainer = GetComponentInChildren<UIContainer>();
+        UIContainer droppedContainer = droppedItem.GetComponentInChildren<UIContainer>();
         //Debug.Log($"Contained Item == {current.item.data[0].GetType()}");
-        if(current.item.data[0].GetType() == typeof(AdventurerParty)){
-            if(dropped.item.data[0].GetType() == typeof(Adventurer)){
-                AdventurerParty party = current.item.data[0] as AdventurerParty;
-                party.adventurers.Add(dropped.item.data[0] as Adventurer);
+        if(currentContainer.item.data[0].GetType() == typeof(AdventurerParty)){
+            if(droppedContainer.item.data[0].GetType() == typeof(Adventurer)){
+                AdventurerParty party = currentContainer.item.data[0] as AdventurerParty;
+                party.adventurers.Add(droppedContainer.item.data[0] as Adventurer);
+                
                 GetComponentInParent<UIDataDisplayController>().displayParty(party);
                 return true;
             }
         }
-        else if(current.item.data[0].GetType() == typeof(Adventurer)){
-            if(dropped.item.data[0].GetType() == typeof(Equipment)){
+        else if(currentContainer.item.data[0].GetType() == typeof(Adventurer)){
+            if(droppedContainer.item.data[0].GetType() == typeof(Equipment)){
                 //Grabe the first item from the InventoryItem Dictionary
-                Equipment item = dropped.item.data[0] as Equipment;
+                Equipment item = droppedContainer.item.data[0] as Equipment;
                 //Get the last owner of the current piece of Equipment contained in InventoryItem Dictionary
                 Creature lastOwner = item.GetHistory[item.GetHistory.Count-1] as Creature;
                 //Grab the first(and only) adventurer in current InventoryItem Dictionary
-                Adventurer adventurer = current.item.data[0] as Adventurer;
+                Adventurer adventurer = currentContainer.item.data[0] as Adventurer;
                 //Add Item to new inventory
-                adventurer.equipment.Add(dropped.item.data[0] as Equipment,adventurer);
+                adventurer.equipment.Add(droppedContainer.item.data[0] as Equipment,adventurer);
                 //Remove Item from old inventory
-                if(lastOwner == Singleton.Instance.Player){
-                    Singleton.Instance.Player_Equipment_Inventory.Remove(dropped.item.data[0] as Equipment);
+                if(lastOwner == Singleton.Instance.PlayerGuild.guildMaster){
+                    Singleton.Instance.Player_Equipment_Inventory.Remove(droppedContainer.item.data[0] as Equipment);
                     Debug.Log("Remove from player inventory");
                 }
                 else{
-                    lastOwner.equipment.Remove(dropped.item.data[0] as Equipment);
+                    lastOwner.equipment.Remove(droppedContainer.item.data[0] as Equipment);
                 }
                 
                 GetComponentInParent<UIDataDisplayController>().displayAdventurer(adventurer);
-                EventSystem.current.SetSelectedGameObject(current.transform.parent.gameObject);
+                EventSystem.current.SetSelectedGameObject(currentContainer.transform.parent.gameObject);
                 return true;
             }
         }

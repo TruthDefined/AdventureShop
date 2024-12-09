@@ -54,10 +54,34 @@ public class UIDataDisplayController : MonoBehaviour
         UIContainer container = obj.GetComponent<UIContainer>();
         container.item = item;
     }
+
+    public void Refresh<T>(List<T> newStuff){
+        foreach(GameObject slot in _inventorySlots){
+            Destroy(slot);
+        }
+        foreach(var thing in newStuff){
+            //Debug.Log("Add Adventurer");
+            GameObject slot = CreateInventorySlot();
+            InventoryItem inItem = new InventoryItem(thing as DataEntity);
+            AddItemToSlot(slot, inItem);
+        }
+    }
+    public void Refresh(InventoryManager inventoryManager){
+        foreach(GameObject slot in _inventorySlots){
+            Destroy(slot);
+        }
+        foreach(KeyValuePair<string,InventoryItem> item in inventoryManager.inventory){
+                GameObject slot = CreateInventorySlot();
+                //_inventorySlots.Add(invSlot);
+                InventoryItem inItem = new InventoryItem(item.Value.data);
+                AddItemToSlot(slot, inItem);
+            }
+    }
+
     public void displayAdventurer(Adventurer adv){
-        parent.showEquipment(adv);
+        parent.showEquipmentOnAdventurer(adv);
     }
     public void displayParty(AdventurerParty party){
-        parent.showParty(party);
+        parent.showAdventurersInParty(party);
     }
 }

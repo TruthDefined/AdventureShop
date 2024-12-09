@@ -18,7 +18,8 @@ public class PlayerInventoryManager: InventoryManager
         onInventoryChangedEvent();
     }
     public override DataEntity Remove(DataEntity referenceData){
+        DataEntity temp = base.Remove(referenceData);
         onInventoryChangedEvent();
-        return base.Remove(referenceData);
+        return temp;
     }
 }

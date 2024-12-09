@@ -7,7 +7,7 @@ public class Singleton : MonoBehaviour
 {
     public static Singleton Instance { get; private set; }
 
-    public PlayerGuild playerGuild { get; private set; }
+    public PlayerGuild PlayerGuild { get; private set; }
     /// <summary>
     /// Raw Materials owned by the player.
     /// </summary>
@@ -21,7 +21,7 @@ public class Singleton : MonoBehaviour
     public EntityManager EntityManager {get; private set;}
     public TimeManager TimeManager {get; private set;}
     public GameObject TooltipPrefab;
-    public Creature Player;
+    private Creature Player;
     public Sprite[] RandomAdventurerSprites;
     public bool debug = true;
     private void Awake()
@@ -54,11 +54,10 @@ public class Singleton : MonoBehaviour
             EntityManager = gameObject.AddComponent<EntityManager>();
         }
         //Create player inventories
-        playerGuild = ScriptableObject.CreateInstance<PlayerGuild>();
-        //PlayerGuild.Init("Player",location:null,parties:null,adventurers:null,crest:null);
-
-        Player_Raw_Inventory = playerGuild.inventory;
-        Player_Equipment_Inventory = playerGuild.equipment;
+        PlayerGuild = new PlayerGuild();
+        Player_Raw_Inventory = PlayerGuild.inventory;
+        Player_Equipment_Inventory = PlayerGuild.equipment;
+        PlayerGuild.guildMaster = Player;
        
     }
     private void Start() {
@@ -66,6 +65,7 @@ public class Singleton : MonoBehaviour
         //Add all raw materials currently registered to the players inventory
         if(debug){
             foreach(RawMaterial mat in EntityManager.rawMaterials){
+                Player_Raw_Inventory.Add(Generate.MaterialOfType(mat));
                 Player_Raw_Inventory.Add(Generate.MaterialOfType(mat));                
             }
             //Debug.Log(TimeManager.GetCurrentDate());

@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 137351334}
   - component: {fileID: 137351335}
   m_Layer: 5
-  m_Name: Party
+  m_Name: Guild
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -415,6 +415,7 @@ MonoBehaviour:
   EquipmentContainer: {fileID: 841085292}
   ActiveEquipmentSlots: []
   ActiveAdventurerSlots: []
+  ActivePartySlots: []
 --- !u!114 &137351335
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1357,7 +1358,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 137351334}
         m_TargetAssemblyTypeName: LoadTestParty, Assembly-CSharp
-        m_MethodName: createParty
+        m_MethodName: GenerateRandomParty
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1466,7 +1467,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TooltipPrefab: {fileID: 53042838}
-  Player: {fileID: 11400000, guid: 8befc2e8daedd234d84695ee5b40532d, type: 2}
   RandomAdventurerSprites:
   - {fileID: 482326271, guid: def4a4a2887172847899ff68426afcf3, type: 3}
   - {fileID: -653673135, guid: def4a4a2887172847899ff68426afcf3, type: 3}
@@ -1648,6 +1648,7 @@ MonoBehaviour:
   _adventurerGuilds: []
   _creatures:
   - {fileID: 11400000, guid: b7db885900d877f438f8826a8fd24cb3, type: 2}
+  - {fileID: 11400000, guid: 8befc2e8daedd234d84695ee5b40532d, type: 2}
   - {fileID: 11400000, guid: 92fa1a560e6ae594daaf6956ece84e9a, type: 2}
   - {fileID: 11400000, guid: 515c0b762ba762945a9810771011c0aa, type: 2}
   _equipment: []
@@ -2603,6 +2604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1810824015}
   - component: {fileID: 1810824018}
+  - component: {fileID: 1810824019}
   m_Layer: 5
   m_Name: PartyContainer
   m_TagString: Untagged
@@ -2644,6 +2646,32 @@ MonoBehaviour:
   parent: {fileID: 0}
   m_slotPrefab: {fileID: 2206311497599458602, guid: 2e0d6c172ff764b4fac9a17f28ed5dee, type: 3}
   m_itemPrefab: {fileID: 6471575779285893542, guid: c26038ef3d63fde4f979ab4b03dfda0c, type: 3}
+--- !u!114 &1810824019
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810824014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &1868041876
 GameObject:
   m_ObjectHideFlags: 0
@@ -3645,6 +3673,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2226356156147272656, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2226356156147272656, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3658,6 +3690,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2343050832328714305, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343050832328714305, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2343050832328714305, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2343050832328714305, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
@@ -3814,6 +3854,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6380735963198579999, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
       propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6380735963198579999, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}
+      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6380735963198579999, guid: 6437037c2b68ee943af3f47498fbc5a2, type: 3}

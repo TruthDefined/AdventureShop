@@ -95,10 +95,10 @@ public class CraftingManager : MonoBehaviour
                 }
             }
             //TODO: Player should be designed as a CREATURE for ease of crafting Init (Or equipment needs special Init just for player-crafted status)
-            newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, Generate.RandomLocation(true), Singleton.Instance.Player, Generate.RandomCreature(true), craftingBlueprint, partsList, materialsUsed, 0, 0, "");
+            newEquipment.Init(importantMatNames + " " + craftingBlueprint.name, Generate.RandomLocation(true), Singleton.Instance.PlayerGuild.guildMaster, Generate.RandomCreature(true), craftingBlueprint, partsList, materialsUsed, 0, 0, "");
             newEquipment.name = importantMatNames + " " + craftingBlueprint.name;
             Singleton.Instance.EntityManager.AddEquipment(newEquipment);
-            Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment,Singleton.Instance.Player);
+            Singleton.Instance.Player_Equipment_Inventory.Add(newEquipment,Singleton.Instance.PlayerGuild.guildMaster);
 
         }
     }

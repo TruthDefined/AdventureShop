@@ -23,6 +23,7 @@ public class PlayerGuild: HistoricalEntity
     /// Guild Inventory
     /// </summary>
     public PlayerInventoryManager inventory = new PlayerInventoryManager();
+    public Creature guildMaster = new Creature();
 
     public void Init(string name, Location location, List<AdventurerParty> parties, List<Adventurer> adventurers, Sprite crest = null){
         base.Init(name, location);

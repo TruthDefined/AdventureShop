@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,48 +14,62 @@ public class LoadTestParty : MonoBehaviour
     public UIDataDisplayController EquipmentContainer;
     public List<GameObject> ActiveEquipmentSlots;
     public List<GameObject> ActiveAdventurerSlots;
+    public List<GameObject> ActivePartySlots;
 
     private AdventurerParty activeParty;
     private Adventurer activeAdventurer;
+    private AdventurerGuild activeGuild;
 
     private void Awake() {
         // displayController = PartyContainer.GetComponent<UIDataDisplayController>();
     }
     private void Start() {
-        GameObject slot = PartyContainer.CreateInventorySlot();
-        Party = Generate.RandomParty(true);
+        //GameObject slot = PartyContainer.CreateInventorySlot();
+        //GenerateRandomParty();
         // SlotItem item = new SlotItem( Party);
-        InventoryItem item = new InventoryItem(Party);
-        PartyContainer.AddItemToSlot(slot, item);
+        //InventoryItem item = new InventoryItem(Party);
+        //PartyContainer.AddItemToSlot(slot, item);
+    }
+    public void showEquipmentOnAdventurer(Adventurer active){
+        activeAdventurer = active;
+        EquipmentContainer.Refresh(active.equipment);
+    }
+    public void showAdventurersInParty(AdventurerParty active){
+        activeParty = active;
+        AdventurerContainer.Refresh(active.adventurers);
+        foreach(Adventurer adventurer in active.adventurers){
+            AddEquipmentToAdventurer(adventurer);
+        }
+        showEquipmentOnAdventurer(activeParty.adventurers[0]);
+    }
+    public void showPartiesInGuild(AdventurerGuild active){
+        activeGuild = active;
+        PartyContainer.Refresh(Singleton.Instance.PlayerGuild.parties);
     }
 
-    public void showEquipment(Adventurer active){
-        activeAdventurer = active;
-        foreach(GameObject slot in ActiveEquipmentSlots){
-            Destroy(slot);
-        }
-        foreach(KeyValuePair<string,InventoryItem> equipment in active.equipment.inventory){
-                GameObject invSlot = EquipmentContainer.CreateInventorySlot();
-                ActiveEquipmentSlots.Add(invSlot);
-                InventoryItem inItem = new InventoryItem(equipment.Value.data);
-                EquipmentContainer.AddItemToSlot(invSlot, inItem);
-            }
+    public void refreshAdventurer(){
+        showEquipmentOnAdventurer(activeAdventurer);
     }
-    public void showParty(AdventurerParty active){
-        activeParty = active;
-        foreach(GameObject slot in ActiveAdventurerSlots){
-            Destroy(slot);
-        }
-        foreach(Adventurer adventurer in active.adventurers){
-            //Debug.Log("Add Adventurer");
-            GameObject adSlot = AdventurerContainer.CreateInventorySlot();
-            ActiveAdventurerSlots.Add(adSlot);
-            InventoryItem adItem = new InventoryItem( adventurer);
-            PartyContainer.AddItemToSlot(adSlot, adItem);
-            
-            //Create new inventory of Equipment if needed
-            if(adventurer.equipment.inventory.Count== 0){
-                int starterEquipmentCount = Random.Range(2,4);
+    public void refreshParty(){
+        showAdventurersInParty(activeParty);
+    }
+    public void refreshGuild(){
+        showPartiesInGuild(activeGuild);
+    }   
+
+    public void GenerateRandomParty(){
+        AdventurerParty newParty = Generate.RandomParty(true);
+        Singleton.Instance.PlayerGuild.parties.Add(newParty);
+        refreshGuild();
+        showAdventurersInParty(newParty);
+        
+        //showAdventurersInParty(newParty);
+        //showEquipmentOnAdventurer(newParty.adventurers[0]);
+    }
+
+    public void AddEquipmentToAdventurer(Adventurer adventurer){
+        if(adventurer.equipment.inventory.Count== 0){
+                int starterEquipmentCount = UnityEngine.Random.Range(2,4);
                 for (int i = 0; i < starterEquipmentCount; i++)
                 {
                     InventoryItem newItem = new InventoryItem(Generate.RandomEquipment(true));
@@ -62,19 +77,6 @@ public class LoadTestParty : MonoBehaviour
                     //equipment.AddToHistory(adventurer);
                     adventurer.equipment.Add(equipment, adventurer);
                 }
-
-            }        
         }
-    }
-
-    public void refreshParty(){
-        showParty(activeParty);
-    }
-    public void refreshAdventurer(){
-        showEquipment(activeAdventurer);
-    }
-
-    public void createParty(){
-
     }
 }
