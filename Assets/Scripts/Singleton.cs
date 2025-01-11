@@ -21,7 +21,7 @@ public class Singleton : MonoBehaviour
     public EntityManager EntityManager {get; private set;}
     public TimeManager TimeManager {get; private set;}
     public GameObject TooltipPrefab;
-    private Creature Player;
+    private Player player;
     public Sprite[] RandomAdventurerSprites;
     public bool debug = true;
     private void Awake()
@@ -57,7 +57,7 @@ public class Singleton : MonoBehaviour
         PlayerGuild = new PlayerGuild();
         Player_Raw_Inventory = PlayerGuild.inventory;
         Player_Equipment_Inventory = PlayerGuild.equipment;
-        PlayerGuild.guildMaster = Player;
+        PlayerGuild.guildMaster = player;
        
     }
     private void Start() {

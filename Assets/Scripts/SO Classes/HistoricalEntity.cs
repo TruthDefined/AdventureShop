@@ -46,6 +46,90 @@ public class HistoricalEntity : DataEntity
         }
         
     }
+    public bool SetOrigin(Location location, Player harvester = null, Player OriginalOwner = null){
+        if(!originLock){
+            _origin[0] = location;
+            _origin[1] = harvester;
+            _origin[2] = OriginalOwner;
+            originLock = true;
+            return true;
+        } 
+        else{
+            Debug.Log("Origin already set");
+            return false;
+        }
+        
+    }
+    public bool SetOrigin(Location location, Player harvester = null, Creature OriginalOwner = null){
+        if(!originLock){
+            _origin[0] = location;
+            _origin[1] = harvester;
+            _origin[2] = OriginalOwner;
+            originLock = true;
+            return true;
+        } 
+        else{
+            Debug.Log("Origin already set");
+            return false;
+        }
+        
+    }
+    public bool SetOrigin(Location location, Creature harvester = null, Player OriginalOwner = null){
+        if(!originLock){
+            _origin[0] = location;
+            _origin[1] = harvester;
+            _origin[2] = OriginalOwner;
+            originLock = true;
+            return true;
+        } 
+        else{
+            Debug.Log("Origin already set");
+            return false;
+        }
+        
+    }
+    public bool SetOrigin(Location location, Player OriginalOwner = null){
+        if(!originLock){
+            _origin[0] = location;
+            _origin[1] = null;
+            _origin[2] = OriginalOwner;
+            originLock = true;
+            return true;
+        } 
+        else{
+            Debug.Log("Origin already set");
+            return false;
+        }
+        
+    }
+    public bool SetOrigin(Location location, Creature OriginalOwner = null){
+        if(!originLock){
+            _origin[0] = location;
+            _origin[1] = null;
+            _origin[2] = OriginalOwner;
+            originLock = true;
+            return true;
+        } 
+        else{
+            Debug.Log("Origin already set");
+            return false;
+        }
+        
+    }
+    public bool SetOrigin(Location location){
+        if(!originLock){
+            _origin[0] = location;
+            _origin[1] = null;
+            _origin[2] = null;
+            originLock = true;
+            return true;
+        } 
+        else{
+            Debug.Log("Origin already set");
+            return false;
+        }
+        
+    }
     /// <summary>
     /// Returns a list of all previous holders of this object
     /// </summary>
@@ -85,6 +169,29 @@ public class HistoricalEntity : DataEntity
         base.Init(name);
         SetOrigin(location,harvester,originalOwner);
         AddToHistory(harvester);
+    }
+    public void Init(string name, Location location, Player harvester, Creature originalOwner){
+        base.Init(name);
+        SetOrigin(location,harvester,originalOwner);
+        AddToHistory(harvester);
+    }
+    public void Init(string name, Location location, Player harvester, Player originalOwner){
+        base.Init(name);
+        SetOrigin(location,harvester,originalOwner);
+        AddToHistory(harvester);
+    }
+    public void Init(string name, Location location, Creature harvester, Player originalOwner){
+        base.Init(name);
+        SetOrigin(location,harvester,originalOwner);
+        AddToHistory(harvester);
+    }
+    public void Init(string name, Location location, Creature originalOwner){
+        base.Init(name);
+        SetOrigin(location,originalOwner);
+    }
+    public void Init(string name, Location location, Player originalOwner){
+        base.Init(name);
+        SetOrigin(location,originalOwner);
     }
 
 }

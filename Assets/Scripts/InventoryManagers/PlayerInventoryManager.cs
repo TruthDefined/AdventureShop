@@ -13,7 +13,11 @@ public class PlayerInventoryManager: InventoryManager
     public delegate void OnInventoryChangedEvent();
     public static OnInventoryChangedEvent onInventoryChangedEvent;
     
-    public override void Add(DataEntity referenceData, Creature lastOwner = null){
+    public override void Add(DataEntity referenceData, Creature Owner = null){
+        base.Add(referenceData);
+        onInventoryChangedEvent();
+    }
+    public void Add(DataEntity referenceData, Player lastOwner = null){
         base.Add(referenceData);
         onInventoryChangedEvent();
     }

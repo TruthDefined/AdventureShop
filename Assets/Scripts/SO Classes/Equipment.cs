@@ -34,4 +34,31 @@ public class Equipment : HistoricalEntity
         this.durability = _durability;
         this.notes = _notes;
     }
+    public void Init(string name, Location location, Player crafter, Creature originalOwner, Blueprint _type, List<PartType> _partsRequired, List<RawMaterial> _usedMaterials, int _price, int _durability, string _notes){
+        base.Init(name,location,crafter,originalOwner);
+        this.equipmentType = _type;
+        this.partsRequired = _partsRequired;
+        this.usedMaterials = _usedMaterials;
+        this.price = _price;
+        this.durability = _durability;
+        this.notes = _notes;
+    }
+    public void Init(string name, Location location, Player crafter, Player originalOwner, Blueprint _type, List<PartType> _partsRequired, List<RawMaterial> _usedMaterials, int _price, int _durability, string _notes){
+        base.Init(name,location,crafter,originalOwner);
+        this.equipmentType = _type;
+        this.partsRequired = _partsRequired;
+        this.usedMaterials = _usedMaterials;
+        this.price = _price;
+        this.durability = _durability;
+        this.notes = _notes;
+    }
+    public void Init(string name, Location location, Creature crafter, Player originalOwner, Blueprint _type, List<PartType> _partsRequired, List<RawMaterial> _usedMaterials, int _price, int _durability, string _notes){
+        base.Init(name,location,crafter,originalOwner);
+        this.equipmentType = _type;
+        this.partsRequired = _partsRequired;
+        this.usedMaterials = _usedMaterials;
+        this.price = _price;
+        this.durability = _durability;
+        this.notes = _notes;
+    }
 }
